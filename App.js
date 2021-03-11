@@ -1,8 +1,8 @@
 import Main from "./components/MainComponent";
 import Product from "./components/ProductComponent";
 import React from "react";
-import { createStackNavigator} from "react-navigation-stack";
-import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from "react-navigation-stack";
+import { createAppContainer } from "react-navigation";
 
 export default class App extends React.Component {
   render() {
@@ -24,6 +24,4 @@ const AppNavigator = createStackNavigator(
   }
 );
 
-const AppContainer = createAppContainer(AppNavigator)
-
-
+const AppContainer = createAppContainer(AppNavigator);
