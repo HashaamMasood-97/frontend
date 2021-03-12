@@ -13,6 +13,10 @@ class Main extends Component {
           title="Go to Product"
           onPress={() => this.props.navigation.navigate("Product")}
         />
+        <Button
+          title="Go to Card"
+          onPress={() => this.props.navigation.navigate("Cards")}
+        />
       </View>
     );
   }

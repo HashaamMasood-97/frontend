@@ -49,7 +49,6 @@ export class Product extends Component {
           title={item.name}
           subtitle={item.price}
           hideChevron={true}
-          content={item.quantity}
           /*leftAvatar={{ source: require("../images/uthappizza.png") }} */
         />
       );

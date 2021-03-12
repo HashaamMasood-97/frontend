@@ -1,5 +1,6 @@
 import Main from "./components/MainComponent";
 import Product from "./components/ProductComponent";
+import Cards from "./components/CardComponent";
 import React from "react";
 import { createStackNavigator } from "react-navigation-stack";
 import { createAppContainer } from "react-navigation";
@@ -17,6 +18,9 @@ const AppNavigator = createStackNavigator(
     },
     Product: {
       screen: Product,
+    },
+    Cards: {
+      screen: Cards,
     },
   },
   {
