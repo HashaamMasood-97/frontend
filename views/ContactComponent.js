@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import { FlatList, View } from "react-native";
 import { ListItem, SearchBar } from "react-native-elements";
 import axios from "axios";
+import {ip} from "../ip/ip";
 
-export class Product extends Component {
+export class Contact extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,7 +16,7 @@ export class Product extends Component {
 
   componentDidMount() {
     axios
-      .get("http://192.168.8.100:3700/gift/product/get")
+      .get(ip+":3700/gift/contact/get")
       .then((response) => {
         this.setState({ gift: response.data });
       })
@@ -29,8 +30,7 @@ export class Product extends Component {
 
     let filteredData = this.state.gift.filter(function (item) {
       return (
-        item.name.toLowerCase().includes(search) ||
-        item.price.toLowerCase().includes(search)
+        item.name.toLowerCase().includes(search)
       );
     });
 
@@ -38,7 +38,7 @@ export class Product extends Component {
   };
 
   static navigationOptions = {
-    title: "Product",
+    title: "Contact",
   };
 
   render() {
@@ -47,9 +47,9 @@ export class Product extends Component {
         <ListItem
           key={index}
           title={item.name}
-          subtitle={item.price}
+          subtitle={item.phone}
           hideChevron={true}
-          /*leftAvatar={{ source: require("../images/uthappizza.png") }} */
+          leftAvatar={{ source: {uri: ip+":3700/"+item.photo} }} 
         />
       );
     };
@@ -80,4 +80,4 @@ export class Product extends Component {
   }
 }
 
-export default Product;
+export default Contact;

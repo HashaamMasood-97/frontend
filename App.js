@@ -1,15 +1,81 @@
-import Main from "./components/MainComponent";
-import Product from "./components/ProductComponent";
-import Cards from "./components/CardComponent";
+import Main from "./views/MainComponent";
+import Product from "./views/ProductComponent";
+import Cards from "./views/CardComponent";
+import Contact from "./views/ContactComponent";
+import PostContact from "./views/PostContactComponent";
+import Category from "./views/Category";
+import Register from "./views/Register";
+import Login from "./views/Login";
+import Home from "./views/Home";
 import React from "react";
 import { createStackNavigator } from "react-navigation-stack";
-import { createAppContainer } from "react-navigation";
+import { createDrawerNavigator} from "react-navigation-drawer";
+import {
+  createAppContainer,
+} from "react-navigation";
+import CustomDrawerComponent from "./components/CustomDrawerComponent";
+import { Dimensions } from "react-native";
+import Icon from "@expo/vector-icons/Ionicons";
+
 
 export default class App extends React.Component {
   render() {
     return <AppContainer />;
   }
 }
+
+
+const HomeStackNavigator = createStackNavigator({
+  Home: {
+    screen: Home,
+    navigationOptions: ({ navigation }) => {
+      return {
+        headerTitle: "Home",
+        headerTitleStyle: {
+          color: "white"
+        },
+        headerStyle: {
+          backgroundColor: "#5BBC9D"
+        },
+        headerLeft: () => (
+          <Icon
+            onPress={() => navigation.openDrawer()}
+            name="md-menu"
+            color="white"
+            size={30}
+            style={{
+              paddingLeft: 10
+            }}
+          />
+        ),
+        headerRight: () => (
+          <Icon
+            onPress={() => navigation.openDrawer()}
+            name="ios-search"
+            color="white"
+            size={30}
+            style={{
+              paddingRight: 10
+            }}
+          />
+        )
+      };
+    }
+  },
+ 
+});
+
+const HomeDrawNavigator = createDrawerNavigator(
+  {
+    Home: {
+      screen: HomeStackNavigator,
+    },
+  },
+  {
+    drawerWidth: Dimensions.get("window").width,
+    contentComponent: CustomDrawerComponent,
+  }
+);
 
 const AppNavigator = createStackNavigator(
   {
@@ -21,6 +87,24 @@ const AppNavigator = createStackNavigator(
     },
     Cards: {
       screen: Cards,
+    },
+    Contact: {
+      screen: Contact,
+    },
+    PostContact: {
+      screen: PostContact,
+    },
+    Category: {
+      screen: Category,
+    },
+    Register: {
+      screen: Register,
+    },
+    Login: {
+      screen: Login,
+    },
+    Home: {
+      screen: HomeDrawNavigator,
     },
   },
   {
