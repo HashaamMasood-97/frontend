@@ -25,8 +25,8 @@ class ItemList extends Component {
               source={imageUri}
               style={{
                 flex: 1,
-                width: null,
-                height: null,
+                width: 150,
+                height: 100,
                 resizeMode: "contain"
               }}
             />

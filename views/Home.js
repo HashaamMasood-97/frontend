@@ -12,7 +12,7 @@ class Home extends Component {
       >
         <ScrollView scrollEnabled>
           <HomeCategory
-            imageUri={require("../assets/women_fashion.jpg")}
+            imageUri={require("../assets/fa.jpg")}
             titleFirst="Womens"
             titleSecond="Fashion"
             subTitle="Spring Season. Opened!"

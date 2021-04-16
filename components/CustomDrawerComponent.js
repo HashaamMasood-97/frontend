@@ -138,7 +138,7 @@ class CustomDrawerComponent extends Component {
               <TouchableOpacity
                 onPress={() => {
                   this.props.navigation.closeDrawer();
-                  this.props.navigation.navigate("Basket");
+                  this.props.navigation.navigate("Main");
                 }}
                 style={{
                   flexDirection: "row",

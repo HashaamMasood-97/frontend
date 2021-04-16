@@ -16,17 +16,11 @@ const { width } = Dimensions.get("window");
 
 class HomeCategory extends Component {
   state = {
-    width: null,
-    height: null
+    width: width,
+    height: 250
   };
 
-  componentDidMount() {
-    const { imageUri } = this.props;
-    this.setState({
-      width: Image.resolveAssetSource(imageUri).width,
-      height: Image.resolveAssetSource(imageUri).height
-    });
-  }
+
 
   render() {
     const { imageUri, titleFirst, titleSecond, subTitle } = this.props;

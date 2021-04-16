@@ -11,7 +11,7 @@ import React from "react";
 import { createStackNavigator } from "react-navigation-stack";
 import { createDrawerNavigator} from "react-navigation-drawer";
 import {
-  createAppContainer,
+  createAppContainer, createSwitchNavigator
 } from "react-navigation";
 import CustomDrawerComponent from "./components/CustomDrawerComponent";
 import { Dimensions } from "react-native";
@@ -95,21 +95,31 @@ const AppNavigator = createStackNavigator(
       screen: PostContact,
     },
     Category: {
-      screen: Category,
-    },
-    Register: {
-      screen: Register,
-    },
-    Login: {
-      screen: Login,
-    },
-    Home: {
-      screen: HomeDrawNavigator,
-    },
+      screen: Category
+    }
   },
   {
     initialRouteName: "Main",
   }
 );
 
-const AppContainer = createAppContainer(AppNavigator);
+
+const AppSwitchNavigator = createSwitchNavigator({
+  Login: {
+    screen: Login
+  },
+  Register: {
+    screen: Register
+  },
+  Home: {
+    screen: HomeDrawNavigator
+  },
+  Main: {
+    screen: AppNavigator
+  }
+ 
+
+
+});
+
+const AppContainer = createAppContainer(AppSwitchNavigator);

@@ -2,20 +2,18 @@ import React, { Component } from "react";
 import { View, Text, ScrollView } from "react-native";
 import {
   heightPercentageToDP as hp,
-  widthPercentageToDP as wp
+  widthPercentageToDP as wp,
 } from "react-native-responsive-screen";
 import Icon from "@expo/vector-icons/Ionicons";
 import ItemList from "../components/ItemList";
+import axios from "axios";
+import { ip } from "../ip/ip";
 
 const CATEGORY = [
   "Dresses",
   "Shoes",
-  "Shorts",
-  "Skirts",
-  "Dresses",
-  "Shoes",
-  "Shorts",
-  "Skirts"
+  "Chocolate",
+  "Fashion Accessories",
 ];
 
 const DRESSES = [
@@ -24,43 +22,43 @@ const DRESSES = [
     imageUri: require("../assets/dresses/dresses_1.jpg"),
     name: "Helena",
     priceOne: 120,
-    priceTwo: "$180"
+    priceTwo: "$180",
   },
   {
     id: 2,
     imageUri: require("../assets/dresses/dresses_2.jpg"),
     name: "Marie-Anne short",
     priceOne: 180,
-    priceTwo: null
+    priceTwo: null,
   },
   {
     id: 3,
     imageUri: require("../assets/dresses/dresses_3.jpg"),
     name: "Betruschka",
     priceOne: 80,
-    priceTwo: null
+    priceTwo: null,
   },
   {
     id: 4,
     imageUri: require("../assets/dresses/dresses_4.jpg"),
     name: "Betruschka",
     priceOne: 80,
-    priceTwo: null
+    priceTwo: null,
   },
   {
     id: 5,
     imageUri: require("../assets/dresses/dresses_1.jpg"),
     name: "Betruschka",
     priceOne: 80,
-    priceTwo: null
+    priceTwo: null,
   },
   {
     id: 6,
     imageUri: require("../assets/dresses/dresses_2.jpg"),
     name: "Betruschka",
     priceOne: 80,
-    priceTwo: null
-  }
+    priceTwo: null,
+  },
 ];
 
 const SHOES = [
@@ -69,53 +67,77 @@ const SHOES = [
     imageUri: require("../assets/shoes/shoes_1.jpg"),
     name: "Helena",
     priceOne: 120,
-    priceTwo: "$180"
+    priceTwo: "$180",
   },
   {
     id: 2,
     imageUri: require("../assets/shoes/shoes_2.jpg"),
     name: "Marie-Anne short",
     priceOne: 180,
-    priceTwo: null
+    priceTwo: null,
   },
   {
     id: 3,
     imageUri: require("../assets/shoes/shoes_3.jpg"),
     name: "Betruschka",
     priceOne: 80,
-    priceTwo: null
+    priceTwo: null,
   },
   {
     id: 4,
     imageUri: require("../assets/shoes/shoes_4.jpg"),
     name: "Betruschka",
     priceOne: 80,
-    priceTwo: null
+    priceTwo: null,
   },
   {
     id: 5,
     imageUri: require("../assets/shoes/shoes_1.jpg"),
     name: "Betruschka",
     priceOne: 80,
-    priceTwo: null
+    priceTwo: null,
   },
   {
     id: 6,
     imageUri: require("../assets/shoes/shoes_2.jpg"),
     name: "Betruschka",
     priceOne: 80,
-    priceTwo: null
-  }
+    priceTwo: null,
+  },
 ];
 
 class Category extends Component {
   state = {
-    currentIndex: 0
+    currentIndex: 0,
+    chocolate: [],
+    fashion: [],
   };
 
   static navigationOptions = {
     title: "Category",
   };
+
+  componentDidMount() {
+    axios
+      .get(ip + ":3700/gift/product/chocolate")
+      .then((response) => {
+        this.setState({ chocolate: response.data });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+      axios
+      .get(ip + ":3700/gift/product/fashion")
+      .then((response) => {
+        this.setState({ fashion: response.data });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+
+  }
 
   renderCategory = () => {
     return CATEGORY.map((item, i) => {
@@ -126,11 +148,55 @@ class Category extends Component {
           style={{
             fontSize: 18,
             color: this.state.currentIndex === i ? "#F08C4F" : "white",
-            paddingHorizontal: 10
+            paddingHorizontal: 10,
           }}
         >
           {item}
         </Text>
+      );
+    });
+  };
+
+  renderItemList_Chocolate = () => {
+    return this.state.chocolate.map((item, i) => {
+      return (
+        <ItemList
+          onPress={() =>
+            this.props.navigation.navigate("Detail", {
+              detailName: item.name,
+              detailImageUri: item.imageUri,
+              detailPriceOne: item.priceOne,
+              detailPriceTwo: item.priceTwo ? item.priceTwo : null,
+            })
+          }
+          key={item._id}
+          imageUri={{ uri: ip + ":3700/" + item.photo }}
+          name={item.name}
+          priceOne={item.priceOne}
+          priceTwo={item.priceTwo ? item.priceTwo : null}
+        />
+      );
+    });
+  };
+
+  renderItemList_Fashion = () => {
+    return this.state.fashion.map((item, i) => {
+      return (
+        <ItemList
+          onPress={() =>
+            this.props.navigation.navigate("Detail", {
+              detailName: item.name,
+              detailImageUri: item.imageUri,
+              detailPriceOne: item.priceOne,
+              detailPriceTwo: item.priceTwo ? item.priceTwo : null,
+            })
+          }
+          key={item._id}
+          imageUri={{ uri: ip + ":3700/" + item.photo }}
+          name={item.name}
+          priceOne={item.priceOne}
+          priceTwo={item.priceTwo ? item.priceTwo : null}
+        />
       );
     });
   };
@@ -144,7 +210,7 @@ class Category extends Component {
               detailName: item.name,
               detailImageUri: item.imageUri,
               detailPriceOne: item.priceOne,
-              detailPriceTwo: item.priceTwo ? item.priceTwo : null
+              detailPriceTwo: item.priceTwo ? item.priceTwo : null,
             })
           }
           key={item.id}
@@ -166,7 +232,7 @@ class Category extends Component {
               detailName: item.name,
               detailImageUri: item.imageUri,
               detailPriceOne: item.priceOne,
-              detailPriceTwo: item.priceTwo ? item.priceTwo : null
+              detailPriceTwo: item.priceTwo ? item.priceTwo : null,
             })
           }
           key={item.id}
@@ -184,6 +250,11 @@ class Category extends Component {
       return this.renderItemList_Dress();
     } else if (this.state.currentIndex === 1) {
       return this.renderItemList_Shoes();
+    } else if (this.state.currentIndex === 2) {
+      return this.renderItemList_Chocolate();
+    }
+    else if (this.state.currentIndex === 3) {
+      return this.renderItemList_Fashion();
     }
   };
 
@@ -191,7 +262,7 @@ class Category extends Component {
     return (
       <View
         style={{
-          flex: 1
+          flex: 1,
         }}
       >
         {/* headerScrollHorizontal */}
@@ -199,12 +270,12 @@ class Category extends Component {
           style={{
             height: hp("8%"),
             backgroundColor: "#63CBA7",
-            flexDirection: "row"
+            flexDirection: "row",
           }}
         >
           <View
             style={{
-              flex: 4
+              flex: 4,
             }}
           >
             <ScrollView
@@ -212,15 +283,15 @@ class Category extends Component {
               pagingEnabled
               showsHorizontalScrollIndicator={false}
               contentContainerStyle={{
-                justifyContent: "center"
+                justifyContent: "center",
               }}
-              ref={node => (this.scroll = node)}
+              ref={(node) => (this.scroll = node)}
             >
               <View
                 style={{
                   flexDirection: "row",
                   justifyContent: "space-around",
-                  alignItems: "center"
+                  alignItems: "center",
                 }}
               >
                 {this.renderCategory()}
@@ -231,7 +302,7 @@ class Category extends Component {
             style={{
               flex: 1,
               justifyContent: "center",
-              alignItems: "center"
+              alignItems: "center",
             }}
           >
             <Icon
@@ -249,14 +320,14 @@ class Category extends Component {
         {/* itemLists ScrollVertical */}
         <View
           style={{
-            flex: 1
+            flex: 1,
           }}
         >
           <ScrollView
             contentContainerStyle={{
               flexDirection: "row",
               flexWrap: "wrap",
-              justifyContent: "space-between"
+              justifyContent: "space-between",
             }}
           >
             {/* ItemList */}

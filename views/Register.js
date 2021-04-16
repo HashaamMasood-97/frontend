@@ -12,6 +12,9 @@ import Input from "../components/Input";
 import Button from "../components/Button";
 
 class Register extends Component {
+  onPressCompleteRegister = () => {
+    this.props.navigation.navigate("Home");
+  };
   render() {
     return (
       <View

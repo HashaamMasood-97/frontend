@@ -31,7 +31,7 @@ export class Product extends Component {
     let filteredData = this.state.gift.filter(function (item) {
       return (
         item.name.toLowerCase().includes(search) ||
-        item.price.toLowerCase().includes(search)
+        item.priceOne.toLowerCase().includes(search)
       );
     });
 
@@ -48,9 +48,9 @@ export class Product extends Component {
         <ListItem
           key={index}
           title={item.name}
-          subtitle={item.price}
+          subtitle={item.priceOne}
           hideChevron={true}
-          /*leftAvatar={{ source: require("../images/uthappizza.png") }} */
+          leftAvatar={{ source: {uri: ip+":3700/"+item.photo} }} 
         />
       );
     };
