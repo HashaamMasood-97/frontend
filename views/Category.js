@@ -9,12 +9,7 @@ import ItemList from "../components/ItemList";
 import axios from "axios";
 import { ip } from "../ip/ip";
 
-const CATEGORY = [
-  "Dresses",
-  "Shoes",
-  "Chocolate",
-  "Fashion Accessories",
-];
+const CATEGORY = ["Dresses", "Shoes", "Chocolate", "Fashion Accessories"];
 
 const DRESSES = [
   {
@@ -127,7 +122,7 @@ class Category extends Component {
         console.log(error);
       });
 
-      axios
+    axios
       .get(ip + ":3700/gift/product/fashion")
       .then((response) => {
         this.setState({ fashion: response.data });
@@ -135,8 +130,6 @@ class Category extends Component {
       .catch(function (error) {
         console.log(error);
       });
-
-
   }
 
   renderCategory = () => {
@@ -164,7 +157,7 @@ class Category extends Component {
           onPress={() =>
             this.props.navigation.navigate("Detail", {
               detailName: item.name,
-              detailImageUri: item.imageUri,
+              detailImageUri: { uri: ip + ":3700/" + item.photo },
               detailPriceOne: item.priceOne,
               detailPriceTwo: item.priceTwo ? item.priceTwo : null,
             })
@@ -186,7 +179,7 @@ class Category extends Component {
           onPress={() =>
             this.props.navigation.navigate("Detail", {
               detailName: item.name,
-              detailImageUri: item.imageUri,
+              detailImageUri: { uri: ip + ":3700/" + item.photo },
               detailPriceOne: item.priceOne,
               detailPriceTwo: item.priceTwo ? item.priceTwo : null,
             })
@@ -252,8 +245,7 @@ class Category extends Component {
       return this.renderItemList_Shoes();
     } else if (this.state.currentIndex === 2) {
       return this.renderItemList_Chocolate();
-    }
-    else if (this.state.currentIndex === 3) {
+    } else if (this.state.currentIndex === 3) {
       return this.renderItemList_Fashion();
     }
   };

@@ -7,6 +7,7 @@ import Category from "./views/Category";
 import Register from "./views/Register";
 import Login from "./views/Login";
 import Home from "./views/Home";
+import Detail from "./views/Detail";
 import React from "react";
 import { createStackNavigator } from "react-navigation-stack";
 import { createDrawerNavigator} from "react-navigation-drawer";
@@ -96,6 +97,9 @@ const AppNavigator = createStackNavigator(
     },
     Category: {
       screen: Category
+    },
+    Detail: {
+      screen: Detail
     }
   },
   {
