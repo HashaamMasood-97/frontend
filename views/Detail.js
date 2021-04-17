@@ -14,6 +14,7 @@ import {
   widthPercentageToDP as wp,
 } from "react-native-responsive-screen";
 import Icon from "@expo/vector-icons/Ionicons";
+import Counter from "react-native-counters";
 
 const { width } = Dimensions.get("window");
 
@@ -28,11 +29,16 @@ class Detail extends Component {
     iconName: "ios-arrow-down",
     sizeBorderColor: "gray",
     colorBorderColor: "gray",
+    num: 1
   };
 
-  onChooseItem = (item) => {
-    this.setState({ size: item });
-  };
+ 
+
+  onChange(number, type) {
+    this.setState({
+      num: number 
+    })
+  }
 
   render() {
     const {
@@ -66,6 +72,11 @@ class Detail extends Component {
             />
           </View>
           {/* image */}
+
+          {/* name */}
+
+          <Text>{detailName}</Text>
+          <Counter start={1} onChange={this.onChange.bind(this)} />
 
           {/* priceBox */}
           <View
@@ -109,7 +120,7 @@ class Detail extends Component {
                     marginRight: 15,
                   }}
                 >
-                  $ {detailPriceOne}
+                  $ {detailPriceOne * this.state.num}
                 </Text>
                 <Text
                   style={{
