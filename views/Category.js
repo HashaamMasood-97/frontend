@@ -8,105 +8,21 @@ import Icon from "@expo/vector-icons/Ionicons";
 import ItemList from "../components/ItemList";
 import axios from "axios";
 import { ip } from "../ip/ip";
+import { SearchBar } from "react-native-elements";
 
-const CATEGORY = ["Dresses", "Shoes", "Chocolate", "Fashion Accessories"];
-
-const DRESSES = [
-  {
-    id: 1,
-    imageUri: require("../assets/dresses/dresses_1.jpg"),
-    name: "Helena",
-    priceOne: 120,
-    priceTwo: "$180",
-  },
-  {
-    id: 2,
-    imageUri: require("../assets/dresses/dresses_2.jpg"),
-    name: "Marie-Anne short",
-    priceOne: 180,
-    priceTwo: null,
-  },
-  {
-    id: 3,
-    imageUri: require("../assets/dresses/dresses_3.jpg"),
-    name: "Betruschka",
-    priceOne: 80,
-    priceTwo: null,
-  },
-  {
-    id: 4,
-    imageUri: require("../assets/dresses/dresses_4.jpg"),
-    name: "Betruschka",
-    priceOne: 80,
-    priceTwo: null,
-  },
-  {
-    id: 5,
-    imageUri: require("../assets/dresses/dresses_1.jpg"),
-    name: "Betruschka",
-    priceOne: 80,
-    priceTwo: null,
-  },
-  {
-    id: 6,
-    imageUri: require("../assets/dresses/dresses_2.jpg"),
-    name: "Betruschka",
-    priceOne: 80,
-    priceTwo: null,
-  },
-];
-
-const SHOES = [
-  {
-    id: 1,
-    imageUri: require("../assets/shoes/shoes_1.jpg"),
-    name: "Helena",
-    priceOne: 120,
-    priceTwo: "$180",
-  },
-  {
-    id: 2,
-    imageUri: require("../assets/shoes/shoes_2.jpg"),
-    name: "Marie-Anne short",
-    priceOne: 180,
-    priceTwo: null,
-  },
-  {
-    id: 3,
-    imageUri: require("../assets/shoes/shoes_3.jpg"),
-    name: "Betruschka",
-    priceOne: 80,
-    priceTwo: null,
-  },
-  {
-    id: 4,
-    imageUri: require("../assets/shoes/shoes_4.jpg"),
-    name: "Betruschka",
-    priceOne: 80,
-    priceTwo: null,
-  },
-  {
-    id: 5,
-    imageUri: require("../assets/shoes/shoes_1.jpg"),
-    name: "Betruschka",
-    priceOne: 80,
-    priceTwo: null,
-  },
-  {
-    id: 6,
-    imageUri: require("../assets/shoes/shoes_2.jpg"),
-    name: "Betruschka",
-    priceOne: 80,
-    priceTwo: null,
-  },
-];
+const CATEGORY = ["Chocolate", "Fashion Accessories"];
 
 class Category extends Component {
-  state = {
-    currentIndex: 0,
-    chocolate: [],
-    fashion: [],
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentIndex: 0,
+      chocolate: [],
+      fashion: [],
+      search: "",
+    };
+    this.updateSearch = this.updateSearch.bind(this);
+  }
 
   static navigationOptions = {
     title: "Category",
@@ -132,6 +48,12 @@ class Category extends Component {
       });
   }
 
+  updateSearch(inputText) {
+    this.setState({
+      search: inputText.substr(0, 20),
+    });
+  }
+
   renderCategory = () => {
     return CATEGORY.map((item, i) => {
       return (
@@ -151,29 +73,41 @@ class Category extends Component {
   };
 
   renderItemList_Chocolate = () => {
-    return this.state.chocolate.map((item, i) => {
-      return (
-        <ItemList
-          onPress={() =>
-            this.props.navigation.navigate("Detail", {
-              detailName: item.name,
-              detailImageUri: { uri: ip + ":3700/" + item.photo },
-              detailPriceOne: item.priceOne,
-              detailPriceTwo: item.priceTwo ? item.priceTwo : null,
-            })
-          }
-          key={item._id}
-          imageUri={{ uri: ip + ":3700/" + item.photo }}
-          name={item.name}
-          priceOne={item.priceOne}
-          priceTwo={item.priceTwo ? item.priceTwo : null}
-        />
-      );
-    });
+    return this.state.chocolate
+      .filter((product) => {
+        return (
+          product.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
+          || product.priceOne.indexOf(this.state.search.toLowerCase()) !== -1
+        );
+      })
+      .map((item, i) => {
+        return (
+          <ItemList
+            onPress={() =>
+              this.props.navigation.navigate("Detail", {
+                detailName: item.name,
+                detailImageUri: { uri: ip + ":3700/" + item.photo },
+                detailPriceOne: item.priceOne,
+                detailPriceTwo: item.priceTwo ? item.priceTwo : null,
+              })
+            }
+            key={item._id}
+            imageUri={{ uri: ip + ":3700/" + item.photo }}
+            name={item.name}
+            priceOne={item.priceOne}
+            priceTwo={item.priceTwo ? item.priceTwo : null}
+          />
+        );
+      });
   };
 
   renderItemList_Fashion = () => {
-    return this.state.fashion.map((item, i) => {
+    return this.state.fashion.filter((product) => {
+      return (
+        product.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
+        || product.priceOne.indexOf(this.state.search.toLowerCase()) !== -1
+      );
+    }).map((item, i) => {
       return (
         <ItemList
           onPress={() =>
@@ -186,50 +120,6 @@ class Category extends Component {
           }
           key={item._id}
           imageUri={{ uri: ip + ":3700/" + item.photo }}
-          name={item.name}
-          priceOne={item.priceOne}
-          priceTwo={item.priceTwo ? item.priceTwo : null}
-        />
-      );
-    });
-  };
-
-  renderItemList_Dress = () => {
-    return DRESSES.map((item, i) => {
-      return (
-        <ItemList
-          onPress={() =>
-            this.props.navigation.navigate("Detail", {
-              detailName: item.name,
-              detailImageUri: item.imageUri,
-              detailPriceOne: item.priceOne,
-              detailPriceTwo: item.priceTwo ? item.priceTwo : null,
-            })
-          }
-          key={item.id}
-          imageUri={item.imageUri}
-          name={item.name}
-          priceOne={item.priceOne}
-          priceTwo={item.priceTwo ? item.priceTwo : null}
-        />
-      );
-    });
-  };
-
-  renderItemList_Shoes = () => {
-    return SHOES.map((item, i) => {
-      return (
-        <ItemList
-          onPress={() =>
-            this.props.navigation.navigate("Detail", {
-              detailName: item.name,
-              detailImageUri: item.imageUri,
-              detailPriceOne: item.priceOne,
-              detailPriceTwo: item.priceTwo ? item.priceTwo : null,
-            })
-          }
-          key={item.id}
-          imageUri={item.imageUri}
           name={item.name}
           priceOne={item.priceOne}
           priceTwo={item.priceTwo ? item.priceTwo : null}
@@ -240,12 +130,8 @@ class Category extends Component {
 
   renderItemList = () => {
     if (this.state.currentIndex === 0) {
-      return this.renderItemList_Dress();
-    } else if (this.state.currentIndex === 1) {
-      return this.renderItemList_Shoes();
-    } else if (this.state.currentIndex === 2) {
       return this.renderItemList_Chocolate();
-    } else if (this.state.currentIndex === 3) {
+    } else if (this.state.currentIndex === 1) {
       return this.renderItemList_Fashion();
     }
   };
@@ -309,6 +195,16 @@ class Category extends Component {
         </View>
         {/* headerScrollHorizontal */}
 
+        <SearchBar
+          round={true}
+          lightTheme={true}
+          placeholder="Search..."
+          autoCapitalize="none"
+          autoCorrect={false}
+          onChangeText={this.updateSearch}
+          value={this.state.search}
+        />
+
         {/* itemLists ScrollVertical */}
         <View
           style={{
@@ -323,6 +219,7 @@ class Category extends Component {
             }}
           >
             {/* ItemList */}
+
             {this.renderItemList()}
           </ScrollView>
         </View>

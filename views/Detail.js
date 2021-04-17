@@ -7,15 +7,13 @@ import {
   Dimensions,
   TouchableOpacity,
   Animated,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
 } from "react-native";
 import {
   heightPercentageToDP as hp,
-  widthPercentageToDP as wp
+  widthPercentageToDP as wp,
 } from "react-native-responsive-screen";
 import Icon from "@expo/vector-icons/Ionicons";
-
-import ChoosingSizeBox from "../components/ChoosingSizeBox";
 
 const { width } = Dimensions.get("window");
 
@@ -29,30 +27,24 @@ class Detail extends Component {
     colorIconName: "ios-arrow-down",
     iconName: "ios-arrow-down",
     sizeBorderColor: "gray",
-    colorBorderColor: "gray"
+    colorBorderColor: "gray",
   };
 
-
-
-  onChooseItem = item => {
+  onChooseItem = (item) => {
     this.setState({ size: item });
   };
 
-
-
   render() {
-   
-
     const {
       detailName,
       detailImageUri,
       detailPriceOne,
-      detailPriceTwo
+      detailPriceTwo,
     } = this.props.navigation.state.params;
     return (
       <View
         style={{
-          flex: 1
+          flex: 1,
         }}
       >
         <ScrollView>
@@ -60,7 +52,7 @@ class Detail extends Component {
           <View
             style={{
               width: width,
-              height: hp("50%")
+              height: hp("50%"),
             }}
           >
             <Image
@@ -69,13 +61,11 @@ class Detail extends Component {
                 flex: 1,
                 width: null,
                 height: null,
-                resizeMode: "stretch"
+                resizeMode: "stretch",
               }}
             />
           </View>
           {/* image */}
-
-     
 
           {/* priceBox */}
           <View
@@ -83,7 +73,7 @@ class Detail extends Component {
               flex: 1,
               borderBottomWidth: 1,
               borderBottomColor: "gray",
-              zIndex: 200
+              zIndex: 200,
             }}
           >
             <View
@@ -91,10 +81,9 @@ class Detail extends Component {
                 flexDirection: "row",
                 justifyContent: "space-between",
                 marginHorizontal: 15,
-                marginVertical: 25
+                marginVertical: 25,
               }}
             >
-       
               {/* right */}
             </View>
             <View
@@ -102,7 +91,7 @@ class Detail extends Component {
                 flexDirection: "row",
                 justifyContent: "space-between",
                 marginHorizontal: 15,
-                paddingBottom: 25
+                paddingBottom: 25,
               }}
             >
               {/* down bar */}
@@ -110,14 +99,14 @@ class Detail extends Component {
               <View
                 style={{
                   flexDirection: "row",
-                  alignItems: "flex-end"
+                  alignItems: "flex-end",
                 }}
               >
                 <Text
                   style={{
                     fontSize: 20,
                     fontWeight: "bold",
-                    marginRight: 15
+                    marginRight: 15,
                   }}
                 >
                   $ {detailPriceOne}
@@ -127,7 +116,7 @@ class Detail extends Component {
                     fontSize: 18,
                     fontWeight: "bold",
                     color: "gray",
-                    textDecorationLine: "line-through"
+                    textDecorationLine: "line-through",
                   }}
                 >
                   {detailPriceTwo}
@@ -140,33 +129,33 @@ class Detail extends Component {
                   width: wp("45%"),
                   backgroundColor: "#F08C4F",
                   borderRadius: 2,
-                  padding: 5
+                  padding: 5,
                 }}
               >
                 <TouchableOpacity
                   style={{
                     flex: 1,
                     flexDirection: "row",
-                    alignItems: "center"
+                    alignItems: "center",
                   }}
                 >
                   <View
                     style={{
                       flex: 1,
-                      paddingLeft: 15
+                      paddingLeft: 15,
                     }}
                   >
                     <Icon name="md-cart" size={20} color="white" />
                   </View>
                   <View
                     style={{
-                      flex: 2
+                      flex: 2,
                     }}
                   >
                     <Text
                       style={{
                         fontSize: 18,
-                        color: "white"
+                        color: "white",
                       }}
                     >
                       Purchase
@@ -184,7 +173,7 @@ class Detail extends Component {
             style={{
               flex: 1,
               borderBottomWidth: 1,
-              borderBottomColor: "gray"
+              borderBottomColor: "gray",
             }}
           >
             {/* upper */}
@@ -192,14 +181,14 @@ class Detail extends Component {
               style={{
                 flex: 1,
                 marginHorizontal: 15,
-                marginVertical: 25
+                marginVertical: 25,
               }}
             >
               <Text
                 style={{
                   fontSize: 18,
                   fontWeight: "bold",
-                  color: "#5BBC9D"
+                  color: "#5BBC9D",
                 }}
               >
                 Description
@@ -207,7 +196,7 @@ class Detail extends Component {
               <Text
                 style={{
                   fontSize: 13,
-                  lineHeight: 20
+                  lineHeight: 20,
                 }}
               >
                 Lorem Ipsum is simply dummy text of the printing and typesetting
@@ -218,13 +207,11 @@ class Detail extends Component {
             </View>
             {/* upper */}
             {/* lower */}
-           
-     
+
             {/* lower */}
           </View>
           {/* DescriptionBox */}
 
-       
           {/* reviewBox */}
         </ScrollView>
       </View>
