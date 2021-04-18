@@ -4,17 +4,25 @@ import {
   Text,
   ImageBackground,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
 } from "react-native";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import Icon from "@expo/vector-icons/Ionicons";
+import AsyncStorage from "@react-native-community/async-storage";
+
 
 class CustomDrawerComponent extends Component {
+
+  onPressLogout = () => {
+      AsyncStorage.clear()
+      this.props.navigation.navigate("Login");
+
+  };
   render() {
     return (
       <View
         style={{
-          flex: 1
+          flex: 1,
         }}
       >
         <ImageBackground
@@ -23,7 +31,7 @@ class CustomDrawerComponent extends Component {
             flex: 1,
             width: "100%",
             height: "100%",
-            resizeMode: "contain"
+            resizeMode: "contain",
           }}
         >
           <View
@@ -32,21 +40,21 @@ class CustomDrawerComponent extends Component {
               backgroundColor: "rgba(91, 188, 157, 0.9)",
               paddingTop: wp("14%"),
               paddingHorizontal: wp("9.5%"),
-              paddingBottom: wp("7%")
+              paddingBottom: wp("7%"),
             }}
           >
             <View
               style={{
                 flexDirection: "row",
                 justifyContent: "space-between",
-                alignItems: "center"
+                alignItems: "center",
               }}
             >
               <Text
                 style={{
                   color: "white",
                   fontSize: 20,
-                  fontWeight: "bold"
+                  fontWeight: "bold",
                 }}
               >
                 Menu
@@ -63,7 +71,7 @@ class CustomDrawerComponent extends Component {
                 flex: 2,
                 justifyContent: "space-around",
                 marginVertical: 20,
-                padding: 5
+                padding: 5,
               }}
             >
               <TouchableOpacity
@@ -74,7 +82,7 @@ class CustomDrawerComponent extends Component {
                 style={{
                   flexDirection: "row",
                   alignItems: "center",
-                  paddingVertical: 5
+                  paddingVertical: 5,
                 }}
               >
                 <Icon name="ios-home" color="white" size={40} />
@@ -83,7 +91,7 @@ class CustomDrawerComponent extends Component {
                     color: "white",
                     fontSize: 25,
                     fontWeight: "400",
-                    marginLeft: wp("4.5%")
+                    marginLeft: wp("4.5%"),
                   }}
                 >
                   home
@@ -97,7 +105,7 @@ class CustomDrawerComponent extends Component {
                 style={{
                   flexDirection: "row",
                   alignItems: "center",
-                  paddingVertical: 5
+                  paddingVertical: 5,
                 }}
               >
                 <Icon name="ios-search" color="white" size={40} />
@@ -106,7 +114,7 @@ class CustomDrawerComponent extends Component {
                     color: "white",
                     fontSize: 25,
                     fontWeight: "400",
-                    marginLeft: wp("4.5%")
+                    marginLeft: wp("4.5%"),
                   }}
                 >
                   search
@@ -120,7 +128,7 @@ class CustomDrawerComponent extends Component {
                 style={{
                   flexDirection: "row",
                   alignItems: "center",
-                  paddingVertical: 5
+                  paddingVertical: 5,
                 }}
               >
                 <Icon name="ios-list-box" color="white" size={40} />
@@ -129,7 +137,7 @@ class CustomDrawerComponent extends Component {
                     color: "white",
                     fontSize: 25,
                     fontWeight: "400",
-                    marginLeft: wp("4.5%")
+                    marginLeft: wp("4.5%"),
                   }}
                 >
                   categories
@@ -143,7 +151,7 @@ class CustomDrawerComponent extends Component {
                 style={{
                   flexDirection: "row",
                   alignItems: "center",
-                  paddingVertical: 5
+                  paddingVertical: 5,
                 }}
               >
                 <Icon name="ios-cart" color="white" size={40} />
@@ -152,23 +160,43 @@ class CustomDrawerComponent extends Component {
                     color: "white",
                     fontSize: 25,
                     fontWeight: "400",
-                    marginLeft: wp("4.5%")
+                    marginLeft: wp("4.5%"),
                   }}
                 >
                   basket
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={this.onPressLogout}
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  paddingVertical: 5,
+                }}
+              >
+                <Icon name="ios-cart" color="white" size={40} />
+                <Text
+                  style={{
+                    color: "white",
+                    fontSize: 25,
+                    fontWeight: "400",
+                    marginLeft: wp("4.5%"),
+                  }}
+                >
+                  logout
                 </Text>
               </TouchableOpacity>
             </View>
             <View
               style={{
                 flex: 1,
-                justifyContent: "flex-end"
+                justifyContent: "flex-end",
               }}
             >
               <View
                 style={{
                   flexDirection: "row",
-                  alignItems: "center"
+                  alignItems: "center",
                 }}
               >
                 <View
@@ -177,7 +205,7 @@ class CustomDrawerComponent extends Component {
                     height: wp("20%"),
                     overflow: "hidden",
                     borderRadius: wp("10%"),
-                    marginRight: wp("4.5%")
+                    marginRight: wp("4.5%"),
                   }}
                 >
                   <Image
@@ -186,7 +214,7 @@ class CustomDrawerComponent extends Component {
                       flex: 1,
                       width: null,
                       height: null,
-                      resizeMode: "contain"
+                      resizeMode: "contain",
                     }}
                   />
                 </View>
@@ -194,7 +222,7 @@ class CustomDrawerComponent extends Component {
                   style={{
                     color: "white",
                     fontSize: 25,
-                    fontWeight: "400"
+                    fontWeight: "400",
                   }}
                 >
                   Account

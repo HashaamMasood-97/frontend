@@ -10,65 +10,61 @@ import {
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import Input from "../components/Input";
 import Button from "../components/Button";
-import { register } from "./AuthFunctions";
+import { login } from "./AuthFunctions";
 
-class Register extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      full_name: "",
-      email: "",
-      password: "",
-    };
 
-    this.onChangeName = this.onChangeName.bind(this);
-    this.onChangeEmail = this.onChangeEmail.bind(this);
-    this.onChangePassword = this.onChangePassword.bind(this);
 
-    this.onPressCompleteRegister = this.onPressCompleteRegister.bind(this);
-  }
+class LoginScreen extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+          email: "",
+          password: "",
+        };
 
-  onChangeName(inputText) {
-    this.setState({
-      full_name: inputText,
-    });
-  }
-
-  onChangePassword(inputText) {
-    this.setState({
-      password: inputText,
-    });
-  }
-
-  onChangeEmail(inputText) {
-    this.setState({
-      email: inputText,
-    });
-  }
-
-  onPressCompleteRegister = () => {
-    const user = {
-      full_name: this.state.full_name,
-      email: this.state.email,
-      password: this.state.password,
-    };
-
-    const errors = {};
-    const emailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    errors.email = !user.email.match(emailformat) ? "Invalid Email" : "";
-    errors.password =
-      user.password.length < 6
-        ? "Password should be more than 6 characters"
-        : "";
-    console.log(errors);
-
-    if (errors.email === "" && errors.password === "") {
-      register(user).then(() => {
-        this.props.navigation.navigate("Home");
-      });
-    }
-  };
+        this.onChangeEmail = this.onChangeEmail.bind(this);
+        this.onChangePassword = this.onChangePassword.bind(this);
+    
+        this.onPressCompleteLogin = this.onPressCompleteLogin.bind(this);
+      }
+    
+     
+    
+      onChangePassword(inputText) {
+        this.setState({
+          password: inputText,
+        });
+      }
+    
+      onChangeEmail(inputText) {
+        this.setState({
+          email: inputText,
+        });
+      }
+    
+      onPressCompleteLogin = () => {
+        const user = {
+          email: this.state.email,
+          password: this.state.password,
+        };
+    
+        const errors = {};
+        const emailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        errors.email = !user.email.match(emailformat) ? "Invalid Email" : "";
+        errors.password =
+          user.password.length < 6
+            ? "Password should be more than 6 characters"
+            : "";
+        console.log(errors);
+    
+        if (errors.email === "" && errors.password === "") {
+          login(user).then(() => {
+            this.props.navigation.navigate("Home");
+          });
+        }
+      };
   render() {
+
     return (
       <View
         style={{
@@ -93,7 +89,7 @@ class Register extends Component {
               opacity: 1,
             }}
           >
-            Signup.
+            Login.
           </Animated.Text>
         </Animated.View>
         <Animated.View
@@ -105,9 +101,24 @@ class Register extends Component {
           }}
         >
           {/* form */}
-          <Input label="Your name" placeholder="Enter your Full name"  value={this.state.full_name} onChange={this.onChangeName} />
-          <Input label="Your email address" placeholder="Email address" value={this.state.email} onChange={this.onChangeEmail} />
+          <Input label="Your email address" placeholder="Email address" value={this.state.email} onChange={this.onChangeEmail}/>
           <Input label="Your password" placeholder="Password" value={this.state.password} onChange={this.onChangePassword} />
+          <Text
+            style={{
+              fontWeight: "500",
+              color: "gray",
+            }}
+          >
+            Don't have an Account?{" "}
+            <Text
+              style={{
+                color: "#F08C4F",
+                fontSize: 15
+              }}
+            >
+              SignUp
+            </Text>
+          </Text>
         </Animated.View>
         <View
           style={{
@@ -133,9 +144,9 @@ class Register extends Component {
             >
               <Button
                 fullWidth
-                onPress={this.onPressCompleteRegister}
+                onPress={this.onPressCompleteLogin}
                 backgroundColor="#F08C4F"
-                text="Complete registration"
+                text="Login"
               />
             </View>
           </ImageBackground>
@@ -145,4 +156,4 @@ class Register extends Component {
   }
 }
 
-export default Register;
+export default LoginScreen;

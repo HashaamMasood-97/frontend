@@ -6,6 +6,7 @@ import PostContact from "./views/PostContactComponent";
 import Category from "./views/Category";
 import Register from "./views/Register";
 import Login from "./views/Login";
+import LoginScreen from "./views/LoginScreen";
 import Home from "./views/Home";
 import Detail from "./views/Detail";
 import React from "react";
@@ -111,6 +112,9 @@ const AppNavigator = createStackNavigator(
 const AppSwitchNavigator = createSwitchNavigator({
   Login: {
     screen: Login
+  },
+  LoginScreen: {
+    screen: LoginScreen
   },
   Register: {
     screen: Register
