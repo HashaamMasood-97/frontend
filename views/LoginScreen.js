@@ -52,8 +52,8 @@ class LoginScreen extends Component {
         const emailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
         errors.email = !user.email.match(emailformat) ? "Invalid Email" : "";
         errors.password =
-          user.password.length < 6
-            ? "Password should be more than 6 characters"
+          user.password.length < 8
+            ? "Password should be more than 7 characters"
             : "";
         console.log(errors);
     

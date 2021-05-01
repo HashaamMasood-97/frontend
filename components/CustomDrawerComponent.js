@@ -9,13 +9,70 @@ import {
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import Icon from "@expo/vector-icons/Ionicons";
 import AsyncStorage from "@react-native-community/async-storage";
-
+import { userNameKey} from '../views/AuthFunctions';
 
 class CustomDrawerComponent extends Component {
+  constructor(props) {
+    super(props);
+    this.getData();
+  }
 
-  onPressLogout = () => {
-      AsyncStorage.clear()
-      this.props.navigation.navigate("Login");
+  getData = async () =>{
+    /*try{
+      const value = await AsyncStorage.getItem('token')
+      let parsed = JSON.parse(value)
+        if(parsed !== null){
+         console.log(parsed)
+        }
+        else(
+          console.log("hey")
+        )
+      }catch(e){
+      } */
+
+        
+        try{
+          await AsyncStorage.getItem('token')
+          .then((value) => {
+            const data = JSON.parse(value);
+            console.log('name is ', data.name);
+          });
+          }catch(e){
+    
+          }  
+
+         /* AsyncStorage.getItem('token').then( (value) => console.log('value ', value, 'name is ', value.name)); */
+
+    
+  }
+
+  onPressLogout = async () => {
+ /*
+    try {
+      const value = await AsyncStorage.getItem(userNameKey);
+      let parsed = JSON.parse(value);  
+      if (parsed != null) {
+        alert(parsed)
+      }
+      else{
+        alert(" no token")
+      }
+    } catch (error) {
+      // Error retrieving data
+    } */
+
+   try {
+       await AsyncStorage.removeItem('token', (err) => console.log('token', err)).then(()=>{
+        this.props.navigation.navigate("Login");
+        console.log("removed") 
+       });
+ 
+    } catch (error) {
+      console.log("not removed")
+    } 
+
+  
+    
 
   };
   render() {

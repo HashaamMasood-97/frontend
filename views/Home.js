@@ -29,6 +29,8 @@ const images = [
  ]
 
 const Home = () => {
+  
+
 
   return (
     <View>

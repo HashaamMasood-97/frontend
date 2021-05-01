@@ -2,21 +2,43 @@ import React, { Component } from "react";
 import { View, Text, ImageBackground } from "react-native";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import Button from "../components/Button";
-import AsyncStorage from '@react-native-community/async-storage';
-  const token = AsyncStorage.getItem('token')
+import AsyncStorage from "@react-native-community/async-storage";
+
 class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.getData();
+  }
+
   onPressRegister = () => {
     this.props.navigation.navigate("Register");
   };
 
+  getData = async () => {
+    try {
+      const value = await AsyncStorage.getItem("token");
 
-  onPressLoginScreen = () => {
-    if(token){
-    this.props.navigation.navigate("Home");
-    }
-    else{
-      this.props.navigation.navigate("LoginScreen");
-    }
+      if (value !== null) {
+        console.log(value);
+      } else console.log("hey");
+    } catch (e) {}
+  };
+
+  onPressLoginScreen = async () => {
+    /* try {
+        const value = await AsyncStorage.getItem('token');
+        let parsed = JSON.parse(value);  
+        if (parsed != null) {
+          this.props.navigation.navigate("Home");
+        }
+        else{
+          this.props.navigation.navigate("LoginScreen");
+        }
+      } catch (error) {
+       console.log(error)
+      } */
+
+    this.props.navigation.navigate("LoginScreen");
   };
 
   render() {
