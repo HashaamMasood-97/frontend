@@ -144,11 +144,13 @@ class Detail extends Component {
                 }}
               >
                 <TouchableOpacity
+                       onPress={() => this.props.navigation.navigate("Basket")}
                   style={{
                     flex: 1,
                     flexDirection: "row",
                     alignItems: "center",
                   }}
+               
                 >
                   <View
                     style={{
@@ -162,12 +164,14 @@ class Detail extends Component {
                     style={{
                       flex: 2,
                     }}
+                   
                   >
                     <Text
                       style={{
                         fontSize: 18,
                         color: "white",
                       }}
+                      
                     >
                       Purchase
                     </Text>

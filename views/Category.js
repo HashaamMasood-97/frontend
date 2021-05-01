@@ -137,6 +137,7 @@ class Category extends Component {
   };
 
   render() {
+   
     return (
       <View
         style={{

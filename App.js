@@ -9,6 +9,7 @@ import Login from "./views/Login";
 import LoginScreen from "./views/LoginScreen";
 import Home from "./views/Home";
 import Detail from "./views/Detail";
+import Basket from "./views/Basket";
 import React from "react";
 import { createStackNavigator } from "react-navigation-stack";
 import { createDrawerNavigator} from "react-navigation-drawer";
@@ -51,6 +52,7 @@ const HomeStackNavigator = createStackNavigator({
           />
         ),
         headerRight: () => (
+          
           <Icon
             onPress={() => navigation.openDrawer()}
             name="ios-search"
@@ -60,6 +62,9 @@ const HomeStackNavigator = createStackNavigator({
               paddingRight: 10
             }}
           />
+        
+        
+          
         )
       };
     }
@@ -96,12 +101,16 @@ const AppNavigator = createStackNavigator(
     PostContact: {
       screen: PostContact,
     },
+ 
+    Detail: {
+      screen: Detail
+    },
     Category: {
       screen: Category
     },
-    Detail: {
-      screen: Detail
-    }
+    Basket: {
+      screen: Basket
+    },
   },
   {
     initialRouteName: "Main",
@@ -124,10 +133,8 @@ const AppSwitchNavigator = createSwitchNavigator({
   },
   Main: {
     screen: AppNavigator
-  }
- 
-
-
+  },
+  
 });
 
 const AppContainer = createAppContainer(AppSwitchNavigator);
