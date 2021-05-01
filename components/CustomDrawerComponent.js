@@ -43,7 +43,7 @@ class CustomDrawerComponent extends Component {
       });
     } catch (e) {}
 
-    /* AsyncStorage.getItem('token').then( (value) => console.log('value ', value, 'name is ', value.name)); */
+    AsyncStorage.getItem('cart').then( (value) => console.log('value ', value)); 
   };
 
   onPressLogout = async () => {

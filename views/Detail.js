@@ -15,22 +15,48 @@ import {
 } from "react-native-responsive-screen";
 import Icon from "@expo/vector-icons/Ionicons";
 import Counter from "react-native-counters";
+import AsyncStorage from "@react-native-community/async-storage";
+import { ThemeConsumer } from "react-native-elements";
 
 const { width } = Dimensions.get("window");
 
 class Detail extends Component {
-  state = {
-    defaultBox: null,
-    size: "small",
-    color: "black",
-    sizeBoxOpen: false,
-    colorBoxOpen: false,
-    colorIconName: "ios-arrow-down",
-    iconName: "ios-arrow-down",
-    sizeBorderColor: "gray",
-    colorBorderColor: "gray",
-    num: 1
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      num: 1,
+    };
+
+  }
+ 
+
+  onClickAddCart(){
+
+    const itemcart = {
+      item: this.props.navigation.state.params.detailName,
+      quantity:  this.state.num,
+      price: this.props.navigation.state.params.detailPriceOne * this.state.num,
+      image: this.props.navigation.state.params.detailImageUri
+    }
+ 
+    AsyncStorage.getItem('cart').then((datacart)=>{
+        if (datacart !== null) {
+          // We have data!!
+          const cart = JSON.parse(datacart)
+          cart.push(itemcart)
+          AsyncStorage.setItem('cart',JSON.stringify(cart));
+        }
+        else{
+          const cart  = []
+          cart.push(itemcart)
+          AsyncStorage.setItem('cart',JSON.stringify(cart));
+        }
+        alert("Add Cart")
+      })
+      .catch((err)=>{
+        alert(err)
+      })
+  }
 
  
 
@@ -144,7 +170,8 @@ class Detail extends Component {
                 }}
               >
                 <TouchableOpacity
-                       onPress={() => this.props.navigation.navigate("Basket")}
+                     /*  onPress={() => this.props.navigation.navigate("Basket")} */
+                     onPress={()=>this.onClickAddCart()}
                   style={{
                     flex: 1,
                     flexDirection: "row",
