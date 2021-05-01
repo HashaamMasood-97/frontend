@@ -20,15 +20,14 @@ class Login extends Component {
 
       if (value !== null) {
         console.log(value);
-      } else console.log("hey");
+      } else console.log("Logged Out");
     } catch (e) {}
   };
 
   onPressLoginScreen = async () => {
-    /* try {
+     try {
         const value = await AsyncStorage.getItem('token');
-        let parsed = JSON.parse(value);  
-        if (parsed != null) {
+        if (value != null) {
           this.props.navigation.navigate("Home");
         }
         else{
@@ -36,9 +35,8 @@ class Login extends Component {
         }
       } catch (error) {
        console.log(error)
-      } */
+      } 
 
-    this.props.navigation.navigate("LoginScreen");
   };
 
   render() {

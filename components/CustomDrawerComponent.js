@@ -9,15 +9,19 @@ import {
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import Icon from "@expo/vector-icons/Ionicons";
 import AsyncStorage from "@react-native-community/async-storage";
-import { userNameKey} from '../views/AuthFunctions';
+import { userNameKey } from "../views/AuthFunctions";
 
 class CustomDrawerComponent extends Component {
   constructor(props) {
     super(props);
     this.getData();
   }
+  state={
+    name: "",
+    email:""
+  }
 
-  getData = async () =>{
+  getData = async () => {
     /*try{
       const value = await AsyncStorage.getItem('token')
       let parsed = JSON.parse(value)
@@ -30,50 +34,29 @@ class CustomDrawerComponent extends Component {
       }catch(e){
       } */
 
-        
-        try{
-          await AsyncStorage.getItem('token')
-          .then((value) => {
-            const data = JSON.parse(value);
-            console.log('name is ', data.name);
-          });
-          }catch(e){
-    
-          }  
+    try {
+      await AsyncStorage.getItem("token").then((value) => {
+        const data = JSON.parse(value);
+        this.setState({name: data.name});
+        this.setState({email: data.Email})
+        console.log("name is ", data.name);
+      });
+    } catch (e) {}
 
-         /* AsyncStorage.getItem('token').then( (value) => console.log('value ', value, 'name is ', value.name)); */
-
-    
-  }
+    /* AsyncStorage.getItem('token').then( (value) => console.log('value ', value, 'name is ', value.name)); */
+  };
 
   onPressLogout = async () => {
- /*
     try {
-      const value = await AsyncStorage.getItem(userNameKey);
-      let parsed = JSON.parse(value);  
-      if (parsed != null) {
-        alert(parsed)
-      }
-      else{
-        alert(" no token")
-      }
-    } catch (error) {
-      // Error retrieving data
-    } */
-
-   try {
-       await AsyncStorage.removeItem('token', (err) => console.log('token', err)).then(()=>{
+      await AsyncStorage.removeItem("token", (err) =>
+        console.log("token", err)
+      ).then(() => {
         this.props.navigation.navigate("Login");
-        console.log("removed") 
-       });
- 
+        console.log("removed");
+      });
     } catch (error) {
-      console.log("not removed")
-    } 
-
-  
-    
-
+      console.log("not removed");
+    }
   };
   render() {
     return (
@@ -122,6 +105,65 @@ class CustomDrawerComponent extends Component {
                 color="white"
                 size={50}
               />
+            </View>
+            <View
+              style={{
+                marginTop:20,
+                flex: 0.3
+              }}
+            >
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
+              >
+                <View
+                  style={{
+                    width: wp("17%"),
+                    height: wp("17%"),
+                    overflow: "hidden",
+                    borderRadius: wp("10%"),
+                    marginRight: wp("4.5%"),
+                  }}
+                >
+                  <Image
+                    source={require("../assets/reviewer.jpg")}
+                    style={{
+                      flex: 1,
+                      width: null,
+                      height: null,
+                      resizeMode: "contain",
+                    }}
+                  />
+                </View>
+                <View
+                style={{
+                  flexDirection: "column",
+                 
+                }}
+              >
+                <Text
+                  style={{
+                    color: "white",
+                    fontSize: 25,
+                    fontWeight: "400",
+                  }}
+                >
+                  {this.state.name}
+                </Text>
+                <Text
+                  style={{
+                    color: "white",
+                    fontSize: 17,
+                    fontWeight: "300",
+                  }}
+                >
+                  {this.state.email}
+                </Text>
+                </View>
+                
+              </View>
             </View>
             <View
               style={{
@@ -244,48 +286,7 @@ class CustomDrawerComponent extends Component {
                 </Text>
               </TouchableOpacity>
             </View>
-            <View
-              style={{
-                flex: 1,
-                justifyContent: "flex-end",
-              }}
-            >
-              <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                }}
-              >
-                <View
-                  style={{
-                    width: wp("20%"),
-                    height: wp("20%"),
-                    overflow: "hidden",
-                    borderRadius: wp("10%"),
-                    marginRight: wp("4.5%"),
-                  }}
-                >
-                  <Image
-                    source={require("../assets/reviewer.jpg")}
-                    style={{
-                      flex: 1,
-                      width: null,
-                      height: null,
-                      resizeMode: "contain",
-                    }}
-                  />
-                </View>
-                <Text
-                  style={{
-                    color: "white",
-                    fontSize: 25,
-                    fontWeight: "400",
-                  }}
-                >
-                  Account
-                </Text>
-              </View>
-            </View>
+         
           </View>
         </ImageBackground>
       </View>
