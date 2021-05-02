@@ -31,7 +31,7 @@ class BasketTotalList extends Component {
             fontWeight: "bold"
           }}
         >
-          ${price}
+          {price}
         </Text>
       </View>
     );

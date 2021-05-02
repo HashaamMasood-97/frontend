@@ -4,50 +4,85 @@ import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import Icon from "@expo/vector-icons/Ionicons";
 import BasketItem from "../components/BasketItem";
 import BasketTotalList from "../components/BasketTotalList";
+import AsyncStorage from "@react-native-community/async-storage";
 
 class Basket extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      dataCart: [],
+      totalPrice: 0,
+      totalQuantity: 0
+    };
+  }
+ 
+
+
+
+  componentDidMount() {
+    AsyncStorage.getItem("cart")
+      .then((cart) => {
+        if (cart !== null) {
+          // We have data!!
+          const cartfood = JSON.parse(cart);
+          this.setState({ dataCart: cartfood });
+
+
+          let price = 0;
+          this.state.dataCart.forEach((element) => {
+          price += element.price;
+          });
+          this.setState({ totalPrice: price });
+
+          
+          let totalQty = 0;
+          this.state.dataCart.forEach((element) => {
+          totalQty += element.quantity;
+          });
+          this.setState({ totalQuantity: totalQty });
+
+        }
+      })
+      .catch((err) => {
+        alert(err);
+      });
+     
+  }
+
+
   render() {
     return (
       <View
         style={{
           flex: 1,
-          backgroundColor: "#EFF0F1"
+          backgroundColor: "#EFF0F1",
         }}
       >
         {/* ItemLists_upper */}
         <View
           style={{
-            flex: 2
+            flex: 2,
           }}
         >
           <ScrollView>
-            <BasketItem
-              editIcon={true}
-              imageUri={require("../assets/fa2.jpg")}
-              name="Dress Helena"
-              color="Black"
-              size="M"
-              price={120}
-              {...this.props}
-            />
-            <BasketItem
-              editIcon={true}
-              imageUri={require("../assets/fa2.jpg")}
-              name="Dress Marie-Anne short"
-              color="Black"
-              size="M"
-              price={180}
-              {...this.props}
-            />
-            <BasketItem
-              editIcon={true}
-              imageUri={require("../assets/fa2.jpg")}
-              name="Dress Betruschka"
-              color="Black"
-              size="M"
-              price={80}
-              {...this.props}
-            />
+            {this.state.dataCart != "" ? (
+              this.state.dataCart.map((item, key) => {
+                return (
+                  <BasketItem
+                    key={key}
+                    editIcon={true}
+                    imageUri={item.image}
+                    name={item.item}
+                    color="Black"
+                    size="M"
+                    price={item.price}
+                    {...this.props}
+                  />
+                );
+              })
+            ) : (
+              <Text>Cart is Empty</Text>
+            )}
           </ScrollView>
         </View>
         {/* ItemLists_upper */}
@@ -55,17 +90,17 @@ class Basket extends Component {
         <View
           style={{
             flex: 1,
-            paddingTop: wp("10%")
+            paddingTop: wp("10%"),
           }}
         >
-          <BasketTotalList label="Shipping" price={6} />
-          <BasketTotalList label="Your total" price={380} />
+          <BasketTotalList label="Total Quantity" price={this.state.totalQuantity} />
+          <BasketTotalList label="Your total" price={"$" +this.state.totalPrice} />
           <View
             style={{
               flex: 1,
               paddingHorizontal: 20,
               justifyContent: "flex-end",
-              paddingBottom: 15
+              paddingBottom: 15,
             }}
           >
             <TouchableOpacity
@@ -81,12 +116,12 @@ class Basket extends Component {
                 shadowColor: "#000",
                 shadowOpacity: 0.4,
                 elevation: 4,
-                paddingVertical: 10
+                paddingVertical: 10,
               }}
             >
               <View
                 style={{
-                  marginRight: 15
+                  marginRight: 15,
                 }}
               >
                 <Icon name="md-cart" size={20} color="white" />
@@ -95,7 +130,7 @@ class Basket extends Component {
                 style={{
                   fontSize: 18,
                   fontWeight: "500",
-                  color: "white"
+                  color: "white",
                 }}
               >
                 Place your order

@@ -36,7 +36,8 @@ class Detail extends Component {
       item: this.props.navigation.state.params.detailName,
       quantity:  this.state.num,
       price: this.props.navigation.state.params.detailPriceOne * this.state.num,
-      image: this.props.navigation.state.params.detailImageUri
+      image: this.props.navigation.state.params.detailImageUri,
+      id: this.props.navigation.state.params.id
     }
  
     AsyncStorage.getItem('cart').then((datacart)=>{
@@ -51,11 +52,28 @@ class Detail extends Component {
           cart.push(itemcart)
           AsyncStorage.setItem('cart',JSON.stringify(cart));
         }
-        alert("Add Cart")
+        alert( "Item Added TO Cart",
+        "View Cart?",
+        [
+          {
+            text: "Cancel",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel"
+          },
+          { text: "OK", onPress: this.props.navigation.navigate("Basket") }
+        ]
+      );
       })
       .catch((err)=>{
         alert(err)
-      })
+      }) 
+
+       /*  AsyncStorage.removeItem("cart", (err) =>
+          console.log("cart", err)
+        )  */
+      
+      
+    
   }
 
  
@@ -170,8 +188,8 @@ class Detail extends Component {
                 }}
               >
                 <TouchableOpacity
-                     /*  onPress={() => this.props.navigation.navigate("Basket")} */
-                     onPress={()=>this.onClickAddCart()}
+                      /* onPress={() => this.props.navigation.navigate("Basket")} */ 
+                     onPress={()=>this.onClickAddCart()} 
                   style={{
                     flex: 1,
                     flexDirection: "row",

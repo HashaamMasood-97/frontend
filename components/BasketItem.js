@@ -5,37 +5,7 @@ import FAIcon from "@expo/vector-icons/FontAwesome";
 import Icon from "@expo/vector-icons/Ionicons";
 
 class BasketItem extends Component {
-  renderEditIcon = () => {
-    const { imageUri, name, color, size, price, editIcon } = this.props;
-    if (!editIcon) {
-      return null;
-    }
-    return (
-      <TouchableOpacity
-        onPress={() =>
-          this.props.navigation.navigate("EditBasket", {
-            basketItemName: name,
-            basketItemPrice: price,
-            basketItemColor: color,
-            basketItemSize: size,
-            basketItemImageUri: imageUri
-          })
-        }
-        style={{
-          marginRight: 8
-        }}
-      >
-        <FAIcon
-          name="edit"
-          size={30}
-          color="gray"
-          style={{
-            marginBottom: -5
-          }}
-        />
-      </TouchableOpacity>
-    );
-  };
+ 
   render() {
     const { imageUri, name, color, size, price } = this.props;
     return (
@@ -148,7 +118,7 @@ class BasketItem extends Component {
                 <Text>1</Text>
                 <Icon name="ios-arrow-down" size={20} color="gray" />
               </View>
-              {this.renderEditIcon()}
+              {}
               <TouchableOpacity>
                 <FAIcon name="trash-o" size={30} color="gray" />
               </TouchableOpacity>

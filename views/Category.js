@@ -89,6 +89,7 @@ class Category extends Component {
                 detailImageUri: { uri: ip + ":3700/" + item.photo },
                 detailPriceOne: item.priceOne,
                 detailPriceTwo: item.priceTwo ? item.priceTwo : null,
+                id: item._id
               })
             }
             key={item._id}
