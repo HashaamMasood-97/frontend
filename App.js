@@ -10,6 +10,8 @@ import LoginScreen from "./views/LoginScreen";
 import Home from "./views/Home";
 import Detail from "./views/Detail";
 import Basket from "./views/Basket";
+import Address from "./views/Address";
+import Payment from "./views/Payment";
 import React from "react";
 import { createStackNavigator } from "react-navigation-stack";
 import { createDrawerNavigator} from "react-navigation-drawer";
@@ -110,6 +112,12 @@ const AppNavigator = createStackNavigator(
     },
     Basket: {
       screen: Basket
+    },
+    Address: {
+      screen: Address
+    },
+     Payment: {
+      screen: Payment
     },
   },
   {

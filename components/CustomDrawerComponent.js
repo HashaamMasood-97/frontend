@@ -40,6 +40,7 @@ class CustomDrawerComponent extends Component {
         this.setState({name: data.name});
         this.setState({email: data.Email})
         console.log("name is ", data.name);
+        console.log(value);
       });
     } catch (e) {}
 

@@ -5,6 +5,8 @@ import Icon from "@expo/vector-icons/Ionicons";
 import BasketItem from "../components/BasketItem";
 import BasketTotalList from "../components/BasketTotalList";
 import AsyncStorage from "@react-native-community/async-storage";
+import axios from "axios";
+import { ip } from "../ip/ip";
 
 class Basket extends Component {
   constructor(props) {
@@ -12,7 +14,10 @@ class Basket extends Component {
     this.state = {
       dataCart: [],
       totalPrice: 0,
-      totalQuantity: 0
+      totalQuantity: 0,
+      name: '',
+      id: '',
+      email: ''
     };
   }
  
@@ -46,8 +51,38 @@ class Basket extends Component {
       .catch((err) => {
         alert(err);
       });
+
+      try {
+          AsyncStorage.getItem("token").then((value) => {
+          const data = JSON.parse(value);
+          this.setState({name: data.name});
+          this.setState({email: data.Email});
+          this.setState({id: data.id})
+        });
+      } catch (e) {}
      
   }
+
+  onSubmit = () => {
+    // code to connect backend
+    const order = {
+      c_name: this.state.name,
+      c_email: this.state.email,
+      c_id: this.state.id,
+      totalPrice: this.state.totalPrice,
+      totalQty: this.state.totalQuantity,
+      products: this.state.dataCart
+    };
+
+    axios
+      .post(ip + ":3700/gift/order/post", order)
+      .then((res) => console.log(res.data)).then(()=>{
+        AsyncStorage.removeItem("cart", (err) =>
+        console.log("cart", err))
+      }).then(()=>{
+        this.props.navigation.navigate("Home")
+      })
+  };
 
 
   render() {
@@ -105,7 +140,8 @@ class Basket extends Component {
           >
             <TouchableOpacity
               activeOpacity={0.8}
-              onPress={() => this.props.navigation.navigate("Checkout")}
+             /* onPress={() => this.props.navigation.navigate("Address")} */
+             onPress={this.onSubmit}
               style={{
                 flexDirection: "row",
                 backgroundColor: "#F08C4F",

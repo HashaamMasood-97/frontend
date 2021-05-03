@@ -30,6 +30,7 @@ export const login = (user) => {
       const datas = {
         name: response.data.body.full_name,
         Email: response.data.body.email,
+        id: response.data.body._id,
       };
       
         AsyncStorage.setItem("token", JSON.stringify(datas))
@@ -49,7 +50,7 @@ export const login = (user) => {
     });
 };
 
-export const getProfile = (token) => {
+/*export const getProfile = (token) => {
   return axios
     .get("http://localhost:3500/homemedic/profile/doctor", {
       headers: { Authorization: ` ${token}` },
@@ -61,4 +62,4 @@ export const getProfile = (token) => {
     .catch((err) => {
       console.log(err);
     });
-};
+}; */
