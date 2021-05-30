@@ -58,10 +58,16 @@ const category = [
  
 ];
 
-export class Home extends Component {
+class Home extends Component {
   state = {
     cat: category,
   };
+
+  componentDidMount() {
+
+    this.forceUpdate();
+
+}
 
   render() {
     const { navigate } = this.props.navigation;

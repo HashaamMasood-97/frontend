@@ -17,6 +17,7 @@ import Icon from "@expo/vector-icons/Ionicons";
 import Counter from "react-native-counters";
 import AsyncStorage from "@react-native-community/async-storage";
 import { ThemeConsumer } from "react-native-elements";
+import TotalQuantity from "../components/Totalquantity";
 
 const { width } = Dimensions.get("window");
 
@@ -26,71 +27,59 @@ class Detail extends Component {
     this.state = {
       num: 1,
     };
-
   }
- 
 
-  onClickAddCart(){
-
+  onClickAddCart() {
     const itemcart = {
       item: this.props.navigation.state.params.detailName,
-      quantity:  this.state.num,
+      quantity: this.state.num,
       price: this.props.navigation.state.params.detailPriceOne * this.state.num,
       image: this.props.navigation.state.params.detailImageUri,
-      id: this.props.navigation.state.params.id
-    }
- 
-    AsyncStorage.getItem('cart').then((datacart)=>{
+      id: this.props.navigation.state.params.id,
+    };
+
+    AsyncStorage.getItem("cart")
+      .then((datacart) => {
         if (datacart !== null) {
           // We have data!!
-          const cart = JSON.parse(datacart)
-          cart.push(itemcart)
-          AsyncStorage.setItem('cart',JSON.stringify(cart));
+          const cart = JSON.parse(datacart);
+          cart.push(itemcart);
+          AsyncStorage.setItem("cart", JSON.stringify(cart));
+        } else {
+          const cart = [];
+          cart.push(itemcart);
+          AsyncStorage.setItem("cart", JSON.stringify(cart));
         }
-        else{
-          const cart  = []
-          cart.push(itemcart)
-          AsyncStorage.setItem('cart',JSON.stringify(cart));
-        }
-        alert( "Item Added TO Cart",
-        "View Cart?",
-        [
+        alert("Item Added TO Cart", "View Cart?", [
           {
             text: "Cancel",
             onPress: () => console.log("Cancel Pressed"),
-            style: "cancel"
+           
           },
-          { text: "OK", onPress: this.props.navigation.navigate("Basket") }
-        ]
-      );
+          {
+            text: "OK",
+            onPress: this.props.navigation.navigate("Basket")
+          },
+        ]);
       })
-      .catch((err)=>{
-        alert(err)
-      }) 
+      .catch((err) => {
+        alert(err);
+      });
 
-       /*  AsyncStorage.removeItem("cart", (err) =>
+    /*  AsyncStorage.removeItem("cart", (err) =>
           console.log("cart", err)
         )  */
-      
-      
-    
   }
-
- 
 
   onChange(number, type) {
     this.setState({
-      num: number 
-    })
+      num: number,
+    });
   }
 
   render() {
-    const {
-      detailName,
-      detailImageUri,
-      detailPriceOne,
-      detailPriceTwo,
-    } = this.props.navigation.state.params;
+    const { detailName, detailImageUri, detailPriceOne, detailPriceTwo } =
+      this.props.navigation.state.params;
     return (
       <View
         style={{
@@ -188,14 +177,13 @@ class Detail extends Component {
                 }}
               >
                 <TouchableOpacity
-                      /* onPress={() => this.props.navigation.navigate("Basket")} */ 
-                     onPress={()=>this.onClickAddCart()} 
+                  /* onPress={() => this.props.navigation.navigate("Basket")} */
+                  onPress={() => this.onClickAddCart()}
                   style={{
                     flex: 1,
                     flexDirection: "row",
                     alignItems: "center",
                   }}
-               
                 >
                   <View
                     style={{
@@ -209,14 +197,12 @@ class Detail extends Component {
                     style={{
                       flex: 2,
                     }}
-                   
                   >
                     <Text
                       style={{
                         fontSize: 18,
                         color: "white",
                       }}
-                      
                     >
                       Purchase
                     </Text>
@@ -267,7 +253,7 @@ class Detail extends Component {
             </View>
             {/* upper */}
             {/* lower */}
-
+                 
             {/* lower */}
           </View>
           {/* DescriptionBox */}

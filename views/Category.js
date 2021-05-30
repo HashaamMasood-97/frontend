@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { View, Text, ScrollView } from "react-native";
+
+import { View, Text, ScrollView, SafeAreaView } from "react-native";
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,

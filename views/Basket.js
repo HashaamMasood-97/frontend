@@ -172,6 +172,7 @@ class Basket extends Component {
                 Place your order
               </Text>
             </TouchableOpacity>
+         
           </View>
         </View>
         {/* total_lower */}

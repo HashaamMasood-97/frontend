@@ -23,11 +23,7 @@ class Main extends Component {
           title="Go to PostContact"
           onPress={() => this.props.navigation.navigate("PostContact")}
         />
-        <Button
-          title="Go to Category"
-          onPress={() => this.props.navigation.navigate("Category")}
-        />
-
+       
         <Button
           title="Go to Register"
           onPress={() => this.props.navigation.navigate("Register")}
