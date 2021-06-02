@@ -76,10 +76,10 @@ class Address extends Component {
           }}
         >
           <KeyboardAwareScrollView>
-            <Input label="Your full name" value={this.state.name} />
+            <Input label="Your full name" value={this.state.name} onChange={this.onChangeName}  />
             <Input label="Address" value={this.state.address} onChange={this.onChangeAddress}  />
-            <Input label="Contact No." value={this.state.contact} />
-            <Input label="Email Address" value={this.state.email} />
+            <Input label="Contact No." value={this.state.contact} onChange={this.onChangeContact}  />
+            <Input label="Email Address" value={this.state.email} onChange={this.onChangeEmail}  />
     
             <View
               style={{
