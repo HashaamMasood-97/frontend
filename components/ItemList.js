@@ -11,14 +11,14 @@ class ItemList extends Component {
           style={{
             width: wp("44%"),
             marginHorizontal: 10,
-            marginTop: 10
+            marginTop: 10,
           }}
         >
           <View
             style={{
               width: wp("44%"),
               height: wp("55%"),
-              marginBottom: 10
+              marginBottom: 10,
             }}
           >
             <Image
@@ -27,20 +27,20 @@ class ItemList extends Component {
                 flex: 1,
                 width: null,
                 height: null,
-                resizeMode: "contain"
+                resizeMode: "contain",
               }}
             />
           </View>
           <View
             style={{
-              marginHorizontal: 5
+              marginHorizontal: 5,
             }}
           >
             <Text
               style={{
                 fontSize: 18,
                 color: "#63CBA7",
-                fontWeight: "bold"
+                fontWeight: "bold",
               }}
             >
               {name}
@@ -49,13 +49,13 @@ class ItemList extends Component {
               style={{
                 flexDirection: "row",
                 alignItems: "center",
-                paddingTop: 5
+                paddingTop: 5,
               }}
             >
               <Text
                 style={{
                   fontSize: 14,
-                  fontWeight: "bold"
+                  fontWeight: "bold",
                 }}
               >
                 ${priceOne}
@@ -64,7 +64,7 @@ class ItemList extends Component {
                 style={{
                   fontSize: 12,
                   textDecorationLine: "line-through",
-                  marginLeft: 10
+                  marginLeft: 10,
                 }}
               >
                 {priceTwo}

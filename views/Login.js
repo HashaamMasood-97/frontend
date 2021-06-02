@@ -25,18 +25,16 @@ class Login extends Component {
   };
 
   onPressLoginScreen = async () => {
-     try {
-        const value = await AsyncStorage.getItem('token');
-        if (value != null) {
-          this.props.navigation.navigate("Home");
-        }
-        else{
-          this.props.navigation.navigate("LoginScreen");
-        }
-      } catch (error) {
-       console.log(error)
-      } 
-
+    try {
+      const value = await AsyncStorage.getItem("token");
+      if (value != null) {
+        this.props.navigation.navigate("Home");
+      } else {
+        this.props.navigation.navigate("LoginScreen");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   render() {
@@ -54,10 +52,10 @@ class Login extends Component {
             justifyContent: "center",
           }}
         >
-          {/* brandName part */}
+        
           <Text
             style={{
-              // fontSize: hp("11.25%"),
+            
               fontSize: 90,
               fontWeight: "bold",
             }}
@@ -78,14 +76,14 @@ class Login extends Component {
             flex: 2,
           }}
         >
-          {/* Image part */}
+      
           <ImageBackground
             source={require("../assets/login_bg_1.jpg")}
             style={{
               flex: 1,
               width: null,
               height: hp("78%"),
-              // height: 550
+         
             }}
           >
             <View

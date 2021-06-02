@@ -10,29 +10,27 @@ import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import Icon from "@expo/vector-icons/Ionicons";
 import AsyncStorage from "@react-native-community/async-storage";
 
-
 class CustomDrawerComponent extends Component {
   constructor(props) {
     super(props);
     this.getData();
   }
-  state={
+  state = {
     name: "",
-    email:""
-  }
+    email: "",
+  };
 
   getData = async () => {
-
     try {
       await AsyncStorage.getItem("token").then((value) => {
         const data = JSON.parse(value);
-        this.setState({name: data.name});
-        this.setState({email: data.Email});
+        this.setState({ name: data.name });
+        this.setState({ email: data.Email });
         console.log(value);
       });
     } catch (e) {}
 
-    AsyncStorage.getItem('cart').then( (value) => console.log('value ', value)); 
+    AsyncStorage.getItem("cart").then((value) => console.log("value ", value));
   };
 
   onPressLogout = async () => {
@@ -97,8 +95,8 @@ class CustomDrawerComponent extends Component {
             </View>
             <View
               style={{
-                marginTop:20,
-                flex: 0.3
+                marginTop: 20,
+                flex: 0.3,
               }}
             >
               <View
@@ -127,31 +125,29 @@ class CustomDrawerComponent extends Component {
                   />
                 </View>
                 <View
-                style={{
-                  flexDirection: "column",
-                 
-                }}
-              >
-                <Text
                   style={{
-                    color: "white",
-                    fontSize: 25,
-                    fontWeight: "400",
+                    flexDirection: "column",
                   }}
                 >
-                  {this.state.name}
-                </Text>
-                <Text
-                  style={{
-                    color: "white",
-                    fontSize: 17,
-                    fontWeight: "300",
-                  }}
-                >
-                  {this.state.email}
-                </Text>
+                  <Text
+                    style={{
+                      color: "white",
+                      fontSize: 25,
+                      fontWeight: "400",
+                    }}
+                  >
+                    {this.state.name}
+                  </Text>
+                  <Text
+                    style={{
+                      color: "white",
+                      fontSize: 17,
+                      fontWeight: "300",
+                    }}
+                  >
+                    {this.state.email}
+                  </Text>
                 </View>
-                
               </View>
             </View>
             <View
@@ -188,8 +184,6 @@ class CustomDrawerComponent extends Component {
               <TouchableOpacity
                 onPress={() => {
                   this.props.navigation.closeDrawer();
-             
-                     
                 }}
                 style={{
                   flexDirection: "row",
@@ -276,7 +270,6 @@ class CustomDrawerComponent extends Component {
                 </Text>
               </TouchableOpacity>
             </View>
-         
           </View>
         </ImageBackground>
       </View>
@@ -286,10 +279,4 @@ class CustomDrawerComponent extends Component {
 
 export default CustomDrawerComponent;
 
-{
-  /* <Text> CustomDrawerComponent </Text>
-        <Button
-          title="go to Basket"
-          onPress={() => this.props.navigation.navigate("Basket")}
-        /> */
-}
+

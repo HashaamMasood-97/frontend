@@ -21,7 +21,7 @@ const images = [
     image:
       "https://shop.alqasimjewellers.com/wp-content/uploads/2020/01/wp-1579125438143.jpg",
     desc:
-      "Open Able Bangle Or Bracelet, Metal Type, 21K Gold And Rhodium Plated ...",
+      "Open Able Bangle Or Bracelet, Metal Type, 925 Sterling Silver, 21K Gold And Rhodium Plated ...",
   },
   {
     image:

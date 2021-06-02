@@ -1,13 +1,13 @@
 import React, { Component } from "react";
-import { View, Image, Text, TouchableOpacity } from "react-native";
+import { View, Image, Text, TouchableOpacity, Alert } from "react-native";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
-import FAIcon from "@expo/vector-icons/FontAwesome";
-import Icon from "@expo/vector-icons/Ionicons";
+/*import FAIcon from "@expo/vector-icons/FontAwesome";
+import AsyncStorage from "@react-native-community/async-storage"; */
 
 class BasketItem extends Component {
  
   render() {
-    const { imageUri, name, color, size, price } = this.props;
+    const { imageUri, name, quantity, price,ids } = this.props;
     return (
       <View
         style={{
@@ -38,8 +38,8 @@ class BasketItem extends Component {
             }}
           />
         </View>
-        {/* image */}
-        {/* imageInfo_right */}
+       
+      
         <View
           style={{
             flex: 2,
@@ -47,7 +47,7 @@ class BasketItem extends Component {
             justifyContent: "space-between"
           }}
         >
-          {/* imageInfo */}
+        
           <View
             style={{
               flex: 3,
@@ -69,14 +69,7 @@ class BasketItem extends Component {
                 alignItems: "center"
               }}
             >
-              <View
-                style={{
-                  backgroundColor: "black",
-                  width: wp("2.5%"),
-                  height: wp("2.5%"),
-                  marginRight: 5
-                }}
-              />
+              <View/>
               <Text
                 style={{
                   color: "gray",
@@ -84,48 +77,52 @@ class BasketItem extends Component {
                   marginRight: 5
                 }}
               >
-                {color} ,
+               Quantity x{quantity} 
               </Text>
 
-              <Text
-                style={{
-                  color: "gray",
-                  fontSize: 15
-                }}
-              >
-                {size}
-              </Text>
             </View>
-            <View
+            {/*  <View
               style={{
                 flexDirection: "row",
                 alignItems: "center"
               }}
             >
-              <View
-                style={{
-                  width: wp("14%"),
-                  height: wp("8%"),
-                  flexDirection: "row",
-                  borderWidth: 1,
-                  borderColor: "gray",
-                  borderRadius: 2,
-                  justifyContent: "space-around",
-                  alignItems: "center",
-                  marginRight: 8
-                }}
-              >
-                <Text>1</Text>
-                <Icon name="ios-arrow-down" size={20} color="gray" />
-              </View>
-              {}
-              <TouchableOpacity>
-                <FAIcon name="trash-o" size={30} color="gray" />
+        
+             <TouchableOpacity>
+                <FAIcon name="trash-o" size={30} color="gray"  onPress={()=>{
+                       Alert.alert("Are you sure you want to delete this item?", "",   [
+                        {
+                          text: "Cancel",
+                          onPress: () => console.log("Cancel Pressed"),
+                          style: "cancel"
+                        },
+                        { text: "OK",
+                          onPress: () => {
+                      
+                           
+                            
+                              try {
+                                  AsyncStorage.removeItem(ids);
+                                  console.log('Data removed')
+                                }
+                              
+                              catch(exception) {
+                                  return false;
+                              }
+                          
+                            
+
+                          }
+                        }
+                      ] ); 
+              }
+                }  />
               </TouchableOpacity>
+            
             </View>
+            */}
           </View>
-          {/* imageInfo */}
-          {/* imageInfo_price */}
+       
           <View
             style={{
               flex: 1,
@@ -136,7 +133,7 @@ class BasketItem extends Component {
           >
             <Text
               style={{
-                fontSize: 18,
+                fontSize: 15,
                 fontWeight: "bold"
               }}
             >

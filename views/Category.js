@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { View, Text, ScrollView, SafeAreaView } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
@@ -77,8 +77,10 @@ class Category extends Component {
     return this.state.chocolate
       .filter((product) => {
         return (
-          product.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
-          || product.priceOne.indexOf(this.state.search.toLowerCase()) !== -1
+          product.name
+            .toLowerCase()
+            .indexOf(this.state.search.toLowerCase()) !== -1 ||
+          product.priceOne.indexOf(this.state.search.toLowerCase()) !== -1
         );
       })
       .map((item, i) => {
@@ -90,7 +92,7 @@ class Category extends Component {
                 detailImageUri: { uri: ip + ":3700/" + item.photo },
                 detailPriceOne: item.priceOne,
                 detailPriceTwo: item.priceTwo ? item.priceTwo : null,
-                id: item._id
+                id: item._id,
               })
             }
             key={item._id}
@@ -104,30 +106,34 @@ class Category extends Component {
   };
 
   renderItemList_Fashion = () => {
-    return this.state.fashion.filter((product) => {
-      return (
-        product.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
-        || product.priceOne.indexOf(this.state.search.toLowerCase()) !== -1
-      );
-    }).map((item, i) => {
-      return (
-        <ItemList
-          onPress={() =>
-            this.props.navigation.navigate("Detail", {
-              detailName: item.name,
-              detailImageUri: { uri: ip + ":3700/" + item.photo },
-              detailPriceOne: item.priceOne,
-              detailPriceTwo: item.priceTwo ? item.priceTwo : null,
-            })
-          }
-          key={item._id}
-          imageUri={{ uri: ip + ":3700/" + item.photo }}
-          name={item.name}
-          priceOne={item.priceOne}
-          priceTwo={item.priceTwo ? item.priceTwo : null}
-        />
-      );
-    });
+    return this.state.fashion
+      .filter((product) => {
+        return (
+          product.name
+            .toLowerCase()
+            .indexOf(this.state.search.toLowerCase()) !== -1 ||
+          product.priceOne.indexOf(this.state.search.toLowerCase()) !== -1
+        );
+      })
+      .map((item, i) => {
+        return (
+          <ItemList
+            onPress={() =>
+              this.props.navigation.navigate("Detail", {
+                detailName: item.name,
+                detailImageUri: { uri: ip + ":3700/" + item.photo },
+                detailPriceOne: item.priceOne,
+                detailPriceTwo: item.priceTwo ? item.priceTwo : null,
+              })
+            }
+            key={item._id}
+            imageUri={{ uri: ip + ":3700/" + item.photo }}
+            name={item.name}
+            priceOne={item.priceOne}
+            priceTwo={item.priceTwo ? item.priceTwo : null}
+          />
+        );
+      });
   };
 
   renderItemList = () => {
@@ -139,7 +145,6 @@ class Category extends Component {
   };
 
   render() {
-   
     return (
       <View
         style={{

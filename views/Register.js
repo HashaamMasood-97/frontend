@@ -1,12 +1,5 @@
 import React, { Component } from "react";
-import {
-  View,
-  Text,
-  ImageBackground,
-  Platform,
-  Animated,
-  Keyboard,
-} from "react-native";
+import { View, ImageBackground, Platform, Animated } from "react-native";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import Input from "../components/Input";
 import Button from "../components/Button";
@@ -20,7 +13,7 @@ class Register extends Component {
       email: "",
       password: "",
       contact: "",
-      address:""
+      address: "",
     };
 
     this.onChangeName = this.onChangeName.bind(this);
@@ -56,13 +49,11 @@ class Register extends Component {
     });
   }
 
-
   onChangeAddress(inputText) {
     this.setState({
       address: inputText,
     });
   }
-
 
   onPressCompleteRegister = () => {
     const user = {
@@ -102,14 +93,12 @@ class Register extends Component {
             justifyContent: "center",
             paddingHorizontal: hp("2.5%"),
             marginTop: 20,
-            // marginTop: Platform.OS == "android" ? hp("3.75%") : null
           }}
         >
           <Animated.Text
             style={{
               fontSize: 70,
               fontWeight: "400",
-              // opacity: this.animatedTitleOpacity
               opacity: 1,
             }}
           >
@@ -124,12 +113,36 @@ class Register extends Component {
             marginTop: this.formPosition,
           }}
         >
-          {/* form */}
-          <Input label="Your name" placeholder="Enter your Full name"  value={this.state.full_name} onChange={this.onChangeName} />
-          <Input label="Your contact number" placeholder="Contact" value={this.state.contact} onChange={this.onChangeContact} />
-          <Input label="Your address" placeholder="Address" value={this.state.address} onChange={this.onChangeAddress} />
-          <Input label="Your email address" placeholder="Email address" value={this.state.email} onChange={this.onChangeEmail} />
-          <Input label="Your password" placeholder="Password" value={this.state.password} onChange={this.onChangePassword} />
+          <Input
+            label="Your name"
+            placeholder="Enter your Full name"
+            value={this.state.full_name}
+            onChange={this.onChangeName}
+          />
+          <Input
+            label="Your contact number"
+            placeholder="Contact"
+            value={this.state.contact}
+            onChange={this.onChangeContact}
+          />
+          <Input
+            label="Your address"
+            placeholder="Address"
+            value={this.state.address}
+            onChange={this.onChangeAddress}
+          />
+          <Input
+            label="Your email address"
+            placeholder="Email address"
+            value={this.state.email}
+            onChange={this.onChangeEmail}
+          />
+          <Input
+            label="Your password"
+            placeholder="Password"
+            value={this.state.password}
+            onChange={this.onChangePassword}
+          />
         </Animated.View>
         <View
           style={{
@@ -143,7 +156,6 @@ class Register extends Component {
               flex: 1,
               width: null,
               height: hp("72%"),
-              // height: Platform.OS == "android" ? 470 : 440
             }}
           >
             <View

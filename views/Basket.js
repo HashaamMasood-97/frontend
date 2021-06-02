@@ -5,8 +5,6 @@ import Icon from "@expo/vector-icons/Ionicons";
 import BasketItem from "../components/BasketItem";
 import BasketTotalList from "../components/BasketTotalList";
 import AsyncStorage from "@react-native-community/async-storage";
-import axios from "axios";
-import { ip } from "../ip/ip";
 
 class Basket extends Component {
   constructor(props) {
@@ -15,56 +13,45 @@ class Basket extends Component {
       dataCart: [],
       totalPrice: 0,
       totalQuantity: 0,
-      name: '',
-      id: '',
-      email: ''
+      name: "",
+      id: "",
+      email: "",
     };
   }
- 
-
-
 
   componentDidMount() {
     AsyncStorage.getItem("cart")
       .then((cart) => {
         if (cart !== null) {
-          // We have data!!
           const cartfood = JSON.parse(cart);
           this.setState({ dataCart: cartfood });
 
-
           let price = 0;
           this.state.dataCart.forEach((element) => {
-          price += element.price;
+            price += element.price;
           });
           this.setState({ totalPrice: price });
 
-          
           let totalQty = 0;
           this.state.dataCart.forEach((element) => {
-          totalQty += element.quantity;
+            totalQty += element.quantity;
           });
           this.setState({ totalQuantity: totalQty });
-
         }
       })
       .catch((err) => {
         alert(err);
       });
 
-      try {
-          AsyncStorage.getItem("token").then((value) => {
-          const data = JSON.parse(value);
-          this.setState({name: data.name});
-          this.setState({email: data.Email});
-          this.setState({id: data.id})
-        });
-      } catch (e) {}
-     
+    try {
+      AsyncStorage.getItem("token").then((value) => {
+        const data = JSON.parse(value);
+        this.setState({ name: data.name });
+        this.setState({ email: data.Email });
+        this.setState({ id: data.id });
+      });
+    } catch (e) {}
   }
-
- 
-
 
   render() {
     return (
@@ -74,7 +61,6 @@ class Basket extends Component {
           backgroundColor: "#EFF0F1",
         }}
       >
-        {/* ItemLists_upper */}
         <View
           style={{
             flex: 2,
@@ -86,13 +72,11 @@ class Basket extends Component {
                 return (
                   <BasketItem
                     key={key}
-                    editIcon={true}
                     imageUri={item.image}
                     name={item.item}
-                    color="Black"
-                    size="M"
+                    quantity={item.quantity}
                     price={item.price}
-                    {...this.props}
+                    ids={item.id}
                   />
                 );
               })
@@ -101,16 +85,20 @@ class Basket extends Component {
             )}
           </ScrollView>
         </View>
-        {/* ItemLists_upper */}
-        {/* total_lower */}
         <View
           style={{
             flex: 1,
             paddingTop: wp("10%"),
           }}
         >
-          <BasketTotalList label="Total Quantity" price={this.state.totalQuantity} />
-          <BasketTotalList label="Your total" price={"$" +this.state.totalPrice} />
+          <BasketTotalList
+            label="Total Quantity"
+            price={this.state.totalQuantity}
+          />
+          <BasketTotalList
+            label="Your total"
+            price={"$" + this.state.totalPrice}
+          />
           <View
             style={{
               flex: 1,
@@ -121,8 +109,7 @@ class Basket extends Component {
           >
             <TouchableOpacity
               activeOpacity={0.8}
-             onPress={() => this.props.navigation.navigate("Address")} 
-        
+              onPress={() => this.props.navigation.navigate("Address")}
               style={{
                 flexDirection: "row",
                 backgroundColor: "#F08C4F",
@@ -150,27 +137,14 @@ class Basket extends Component {
                   color: "white",
                 }}
               >
-          Checkout
+                Checkout
               </Text>
             </TouchableOpacity>
-         
           </View>
         </View>
-        {/* total_lower */}
       </View>
     );
   }
 }
 
 export default Basket;
-
-{
-  /* <Button
-          title="go to Checkout"
-          onPress={() => this.props.navigation.navigate("Checkout")}
-        />
-        <Button
-          title="go to EditBasket"
-          onPress={() => this.props.navigation.navigate("EditBasket")}
-        /> */
-}

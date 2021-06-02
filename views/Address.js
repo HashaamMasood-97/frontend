@@ -12,9 +12,8 @@ class Address extends Component {
       email: "",
       address: "",
       contact: "",
-      id:""
+      id: "",
     };
-
 
     this.onChangeName = this.onChangeName.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
@@ -28,7 +27,6 @@ class Address extends Component {
     });
   }
 
-
   onChangeEmail(inputText) {
     this.setState({
       email: inputText,
@@ -41,7 +39,6 @@ class Address extends Component {
     });
   }
 
-
   onChangeAddress(inputText) {
     this.setState({
       address: inputText,
@@ -49,16 +46,14 @@ class Address extends Component {
   }
 
   componentDidMount() {
- 
-      AsyncStorage.getItem("token").then((value) => {
-        const data = JSON.parse(value);
-        this.setState({ name: data.name });
-        this.setState({ email: data.Email });
-        this.setState({ contact: data.contact });
-        this.setState({ address: data.address });
-        this.setState({ id: data.id });
-      });
-
+    AsyncStorage.getItem("token").then((value) => {
+      const data = JSON.parse(value);
+      this.setState({ name: data.name });
+      this.setState({ email: data.Email });
+      this.setState({ contact: data.contact });
+      this.setState({ address: data.address });
+      this.setState({ id: data.id });
+    });
   }
   render() {
     return (
@@ -76,11 +71,27 @@ class Address extends Component {
           }}
         >
           <KeyboardAwareScrollView>
-            <Input label="Your full name" value={this.state.name} onChange={this.onChangeName}  />
-            <Input label="Address" value={this.state.address} onChange={this.onChangeAddress}  />
-            <Input label="Contact No." value={this.state.contact} onChange={this.onChangeContact}  />
-            <Input label="Email Address" value={this.state.email} onChange={this.onChangeEmail}  />
-    
+            <Input
+              label="Your full name"
+              value={this.state.name}
+              onChange={this.onChangeName}
+            />
+            <Input
+              label="Address"
+              value={this.state.address}
+              onChange={this.onChangeAddress}
+            />
+            <Input
+              label="Contact No."
+              value={this.state.contact}
+              onChange={this.onChangeContact}
+            />
+            <Input
+              label="Email Address"
+              value={this.state.email}
+              onChange={this.onChangeEmail}
+            />
+
             <View
               style={{
                 flexDirection: "row",
@@ -101,13 +112,15 @@ class Address extends Component {
           >
             <TouchableOpacity
               activeOpacity={0.8}
-              onPress={() => this.props.navigation.navigate("Payment",{
-                name: this.state.name,
-                address:this.state.address,
-                contact:this.state.contact,
-                email:this.state.email,
-                id:this.state.id
-              })}
+              onPress={() =>
+                this.props.navigation.navigate("Payment", {
+                  name: this.state.name,
+                  address: this.state.address,
+                  contact: this.state.contact,
+                  email: this.state.email,
+                  id: this.state.id,
+                })
+              }
               style={{
                 backgroundColor: "#F08C4F",
                 justifyContent: "center",

@@ -87,7 +87,6 @@ const HomeStackNavigator = createStackNavigator({
       };
     },
   },
- 
 
   Detail: {
     screen: Detail,
@@ -113,23 +112,22 @@ const HomeStackNavigator = createStackNavigator({
         ),
         headerRight: () => (
           <View>
-          <MaterialCommunityIcons
-            onPress={() => navigation.openDrawer()}
-            name="cart-outline"
-            color="white"
-            size={30}
-            style={{
-              paddingRight: 15,
-            }}
-          />
+            <MaterialCommunityIcons
+              onPress={() => navigation.openDrawer()}
+              name="cart-outline"
+              color="white"
+              size={30}
+              style={{
+                paddingRight: 15,
+              }}
+            />
 
-          <Badge
-            status="warning"
-            value={<Totalquantity />}
-            containerStyle={{ position: "absolute", top: -6, right: 2 }}
-          />
-        </View>
-      
+            <Badge
+              status="warning"
+              value={<Totalquantity />}
+              containerStyle={{ position: "absolute", top: -6, right: 2 }}
+            />
+          </View>
         ),
       };
     },
@@ -162,9 +160,7 @@ const HomeStackNavigator = createStackNavigator({
   },
 });
 
-
 const CategoryStackNavigator = createStackNavigator({
-
   Category: {
     screen: Category,
     navigationOptions: ({ navigation }) => {
@@ -189,31 +185,26 @@ const CategoryStackNavigator = createStackNavigator({
         ),
         headerRight: () => (
           <View>
-          <MaterialCommunityIcons
-            onPress={() => navigation.openDrawer()}
-            name="cart-outline"
-            color="white"
-            size={30}
-            style={{
-              paddingRight: 15,
-            }}
-          />
+            <MaterialCommunityIcons
+              onPress={() => navigation.openDrawer()}
+              name="cart-outline"
+              color="white"
+              size={30}
+              style={{
+                paddingRight: 15,
+              }}
+            />
 
-          <Badge
-            status="warning"
-            value={<Totalquantity />}
-            containerStyle={{ position: "absolute", top: -6, right: 2 }}
-          />
-        </View>
-
+            <Badge
+              status="warning"
+              value={<Totalquantity />}
+              containerStyle={{ position: "absolute", top: -6, right: 2 }}
+            />
+          </View>
         ),
       };
     },
   },
-
-  
-
-
 });
 
 const HomeDrawNavigator = createDrawerNavigator(
@@ -221,7 +212,6 @@ const HomeDrawNavigator = createDrawerNavigator(
     Home: {
       screen: HomeStackNavigator,
     },
-  
   },
   {
     drawerWidth: Dimensions.get("window").width,
@@ -276,9 +266,9 @@ const AppSwitchNavigator = createSwitchNavigator({
     screen: AppNavigator,
   },
 
-  Category:{
-    screen: CategoryStackNavigator
-  }
+  Category: {
+    screen: CategoryStackNavigator,
+  },
 });
 
 const AppContainer = createAppContainer(AppSwitchNavigator);

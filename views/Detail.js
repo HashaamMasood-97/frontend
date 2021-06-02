@@ -16,8 +16,6 @@ import {
 import Icon from "@expo/vector-icons/Ionicons";
 import Counter from "react-native-counters";
 import AsyncStorage from "@react-native-community/async-storage";
-import { ThemeConsumer } from "react-native-elements";
-import TotalQuantity from "../components/Totalquantity";
 
 const { width } = Dimensions.get("window");
 
@@ -30,7 +28,7 @@ class Detail extends Component {
   }
 
   onClickAddCart() {
-    var a= Math.floor((Math.random() * 10000) + 1);
+    var a = Math.floor(Math.random() * 10000 + 1);
     const itemcart = {
       item: this.props.navigation.state.params.detailName,
       quantity: this.state.num,
@@ -55,21 +53,16 @@ class Detail extends Component {
           {
             text: "Cancel",
             onPress: () => console.log("Cancel Pressed"),
-           
           },
           {
             text: "OK",
-            onPress: this.props.navigation.navigate("Basket")
+            onPress: this.props.navigation.navigate("Basket"),
           },
         ]);
       })
       .catch((err) => {
         alert(err);
       });
-
-    /*  AsyncStorage.removeItem("cart", (err) =>
-          console.log("cart", err)
-        )  */
   }
 
   onChange(number, type) {
@@ -88,7 +81,6 @@ class Detail extends Component {
         }}
       >
         <ScrollView>
-          {/* image */}
           <View
             style={{
               width: width,
@@ -105,14 +97,10 @@ class Detail extends Component {
               }}
             />
           </View>
-          {/* image */}
-
-          {/* name */}
 
           <Text>{detailName}</Text>
           <Counter start={1} onChange={this.onChange.bind(this)} />
 
-          {/* priceBox */}
           <View
             style={{
               flex: 1,
@@ -128,9 +116,7 @@ class Detail extends Component {
                 marginHorizontal: 15,
                 marginVertical: 25,
               }}
-            >
-              {/* right */}
-            </View>
+            ></View>
             <View
               style={{
                 flexDirection: "row",
@@ -139,8 +125,6 @@ class Detail extends Component {
                 paddingBottom: 25,
               }}
             >
-              {/* down bar */}
-              {/* left */}
               <View
                 style={{
                   flexDirection: "row",
@@ -167,8 +151,7 @@ class Detail extends Component {
                   {detailPriceTwo}
                 </Text>
               </View>
-              {/* left */}
-              {/* right */}
+
               <View
                 style={{
                   width: wp("45%"),
@@ -178,7 +161,6 @@ class Detail extends Component {
                 }}
               >
                 <TouchableOpacity
-                  /* onPress={() => this.props.navigation.navigate("Basket")} */
                   onPress={() => this.onClickAddCart()}
                   style={{
                     flex: 1,
@@ -210,12 +192,9 @@ class Detail extends Component {
                   </View>
                 </TouchableOpacity>
               </View>
-              {/* right */}
             </View>
           </View>
-          {/* priceBox */}
 
-          {/* DescriptionBox */}
           <View
             style={{
               flex: 1,
@@ -223,7 +202,6 @@ class Detail extends Component {
               borderBottomColor: "gray",
             }}
           >
-            {/* upper */}
             <View
               style={{
                 flex: 1,
@@ -252,14 +230,7 @@ class Detail extends Component {
                 of type.
               </Text>
             </View>
-            {/* upper */}
-            {/* lower */}
-                 
-            {/* lower */}
           </View>
-          {/* DescriptionBox */}
-
-          {/* reviewBox */}
         </ScrollView>
       </View>
     );

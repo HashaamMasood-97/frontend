@@ -13,14 +13,13 @@ class BasketTotalList extends Component {
           paddingHorizontal: 20,
           paddingVertical: 15,
           borderTopWidth: 0.6,
-          borderTopColor: "gray"
-          //   marginTop: wp("10%")
+          borderTopColor: "gray",
         }}
       >
         <Text
           style={{
             fontSize: 16,
-            fontWeight: "bold"
+            fontWeight: "bold",
           }}
         >
           {label}
@@ -28,7 +27,7 @@ class BasketTotalList extends Component {
         <Text
           style={{
             fontSize: 16,
-            fontWeight: "bold"
+            fontWeight: "bold",
           }}
         >
           {price}

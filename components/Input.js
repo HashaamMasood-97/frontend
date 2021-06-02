@@ -7,14 +7,14 @@ const Input = ({ label, placeholder, value, widthHalf, onChange }) => {
     <View
       style={{
         height: wp("20%"),
-        marginBottom: 8
+        marginBottom: 8,
       }}
     >
       <Text
         style={{
           fontSize: 14,
           fontWeight: "500",
-          color: "gray"
+          color: "gray",
         }}
       >
         {label}
@@ -25,13 +25,13 @@ const Input = ({ label, placeholder, value, widthHalf, onChange }) => {
           {
             flex: 1,
             paddingBottom: 5,
-            justifyContent: "flex-end"
+            justifyContent: "flex-end",
           },
           label == undefined
             ? {
-                justifyContent: "flex-end"
+                justifyContent: "flex-end",
               }
-            : null
+            : null,
         ]}
       >
         <TextInput
@@ -44,13 +44,13 @@ const Input = ({ label, placeholder, value, widthHalf, onChange }) => {
               paddingLeft: 20,
               borderColor: "gray",
               borderWidth: 1,
-              borderRadius: 4
+              borderRadius: 4,
             },
             widthHalf
               ? {
-                  width: wp("43%")
+                  width: wp("43%"),
                 }
-              : null
+              : null,
           ]}
           value={value}
           placeholder={placeholder}

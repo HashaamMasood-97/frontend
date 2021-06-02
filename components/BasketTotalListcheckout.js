@@ -12,9 +12,6 @@ class BasketTotalListcheckout extends Component {
           alignItems: "center",
           paddingHorizontal: 20,
           paddingVertical: 10,
-  
-        
-          //   marginTop: wp("10%")
         }}
       >
         <Text

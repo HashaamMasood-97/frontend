@@ -16,14 +16,14 @@ const Button = ({ backgroundColor, text, onPress, fullWidth }) => {
         shadowOffset: { width: 2, height: 4 },
         shadowColor: "#000",
         shadowOpacity: 0.4,
-        elevation: 4
+        elevation: 4,
       }}
     >
       <Text
         style={{
           fontSize: 20,
           fontWeight: "500",
-          color: "white"
+          color: "white",
         }}
       >
         {text}
