@@ -10,7 +10,7 @@ import {
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import Input from "../components/Input";
 import Button from "../components/Button";
-import { login } from "./AuthFunctions";
+import { login } from "../Authentication/AuthFunctions";
 
 
 

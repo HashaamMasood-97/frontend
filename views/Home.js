@@ -1,59 +1,70 @@
 import React, { Component } from "react";
-import { FlatList, View, ScrollView, SafeAreaView } from "react-native";
+import { FlatList, View, ScrollView, SafeAreaView, Text } from "react-native";
 import Preview from "../components/Preview";
 import { FlatListSlider } from "react-native-flatlist-slider";
 import { ListItem, SearchBar } from "react-native-elements";
 
 const data = [
   {
-    image: "https://picsum.photos/id/11/200/300",
+    image: "https://images.unsplash.com/photo-1607469256872-48074e807b0a?ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8Z2lmdHN8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80",
   },
   {
-    image: "https://picsum.photos/id/10/200/300",
+    image: "https://lh3.googleusercontent.com/proxy/Y5wOgZYRdOs-qjkWZkYkWueyvIrOxkTVWjdraRkGflAenlKtgqaMZrWT6Brac4x6cPLjUqNNj4JQ8lxPqvklBROZ1lowTAU",
   },
   {
-    image: "https://picsum.photos/id/12/200/300",
+    image: "https://www.shutterfly.com/ideas/wp-content/uploads/2018/01/creative-gift-ideas-dyed-handkerchiefs.jpg",
   },
 ];
 
 const images = [
   {
     image:
-      "https://images.unsplash.com/photo-1567226475328-9d6baaf565cf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60",
-    desc: "Silent Waters in the mountains in midst of Himilayas",
+      "https://shop.alqasimjewellers.com/wp-content/uploads/2020/01/wp-1579125438143.jpg",
+    desc:
+      "Open Able Bangle Or Bracelet, Metal Type, 21K Gold And Rhodium Plated ...",
   },
   {
     image:
-      "https://images.unsplash.com/photo-1455620611406-966ca6889d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1130&q=80",
-    desc:
-      "Red fort in India New Delhi is a magnificient masterpeiece of humans",
+      "https://www.pakstyle.pk/img/products/l/p13037-elegant-jewellery-watch-gift-set-update.jpg",
+    desc: "Impress your special ones with this master piece..",
   },
+  {
+    image:
+      "https://images-na.ssl-images-amazon.com/images/I/51ZAV1CypKL.jpg",
+    desc:
+      "Nivea Creme Tin 75ml, Cares and hydrates the skin and prevents it from drying out ...",
+  },
+
+  
+  
+  
+  
 ];
 
 const category = [
   {
     id: 0,
     image:
-      "https://images.unsplash.com/photo-1567226475328-9d6baaf565cf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60",
+      "https://2rdnmg1qbg403gumla1v9i2h-wpengine.netdna-ssl.com/wp-content/uploads/sites/3/2015/03/chocolateWhiteDark-454384771-770x533-1-650x428.jpg",
     desc: "Chocolates",
   },
   {
     id: 1,
     image:
-      "https://images.unsplash.com/photo-1455620611406-966ca6889d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1130&q=80",
+      "https://www.newsleaderonline.com/wp-content/uploads/2020/06/dfRdmB2G5icsHEyYCFP48zoMZsScbNI41591384564.jpg",
     desc: "Fashion Accessories",
   },
   {
     id: 2,
     image:
-      "https://images.unsplash.com/photo-1567226475328-9d6baaf565cf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60",
-    desc: "Chocolates",
+      "https://www.thegiftshop.pk/image/cache/catalog/specially%20for%20her-800x800.jpg",
+    desc: "Gift Basket",
   },
   {
     id: 3,
     image:
-      "https://images.unsplash.com/photo-1455620611406-966ca6889d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1130&q=80",
-    desc: "Fashion Accessories",
+      "https://i.pinimg.com/236x/95/08/0c/95080c7e3f431e4c23e0635d76563353.jpg",
+    desc: "Grooming Kits",
   },
  
 ];
@@ -84,13 +95,33 @@ class Home extends Component {
     };
 
     const headerComponent = () => (
-      <View>
+      <View style={{
+        paddingBottom:10,
+
+     
+      }}>
+       
         <FlatListSlider data={data} />
+        <Text style={{
+          paddingHorizontal: 20,
+          fontWeight: "bold",
+          fontSize: 30,
+          paddingTop:20,
+        }}>Categories</Text>
       </View>
     );
 
     const footerComponent = () => (
-      <View>
+      <View style={{
+        paddingTop:30,
+
+     
+      }}>
+        <Text style={{
+          paddingHorizontal: 20,
+          fontWeight: "bold",
+          fontSize: 30
+        }}>Featured Products</Text>
         <FlatListSlider
           data={images}
           width={275}

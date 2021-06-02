@@ -58,14 +58,6 @@ class Payment extends Component {
         alert(err);
       });
 
-      /*try {
-          AsyncStorage.getItem("token").then((value) => {
-          const data = JSON.parse(value);
-          this.setState({name: data.name});
-          this.setState({email: data.Email});
-          this.setState({id: data.id})
-        });
-      } catch (e) {} */
      
   }
  

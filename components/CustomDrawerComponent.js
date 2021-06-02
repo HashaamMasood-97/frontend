@@ -9,7 +9,7 @@ import {
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import Icon from "@expo/vector-icons/Ionicons";
 import AsyncStorage from "@react-native-community/async-storage";
-import { userNameKey } from "../views/AuthFunctions";
+
 
 class CustomDrawerComponent extends Component {
   constructor(props) {
@@ -22,24 +22,12 @@ class CustomDrawerComponent extends Component {
   }
 
   getData = async () => {
-    /*try{
-      const value = await AsyncStorage.getItem('token')
-      let parsed = JSON.parse(value)
-        if(parsed !== null){
-         console.log(parsed)
-        }
-        else(
-          console.log("hey")
-        )
-      }catch(e){
-      } */
 
     try {
       await AsyncStorage.getItem("token").then((value) => {
         const data = JSON.parse(value);
         this.setState({name: data.name});
-        this.setState({email: data.Email})
-        console.log("name is ", data.name);
+        this.setState({email: data.Email});
         console.log(value);
       });
     } catch (e) {}

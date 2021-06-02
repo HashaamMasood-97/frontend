@@ -1,7 +1,6 @@
 import axios from "axios";
 import { ip } from "../ip/ip";
 import AsyncStorage from "@react-native-community/async-storage";
-import React, { Component } from "react";
 
 export const register = (newUser) => {
   return axios
@@ -55,16 +54,4 @@ export const login = (user) => {
     });
 };
 
-/*export const getProfile = (token) => {
-  return axios
-    .get("http://localhost:3500/homemedic/profile/doctor", {
-      headers: { Authorization: ` ${token}` },
-    })
-    .then((response) => {
-      console.log(response);
-      return response.data;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}; */
+
