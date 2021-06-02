@@ -63,26 +63,7 @@ class Basket extends Component {
      
   }
 
-  onSubmit = () => {
-    // code to connect backend
-    const order = {
-      c_name: this.state.name,
-      c_email: this.state.email,
-      c_id: this.state.id,
-      totalPrice: this.state.totalPrice,
-      totalQty: this.state.totalQuantity,
-      products: this.state.dataCart
-    };
-
-    axios
-      .post(ip + ":3700/gift/order/post", order)
-      .then((res) => console.log(res.data)).then(()=>{
-        AsyncStorage.removeItem("cart", (err) =>
-        console.log("cart", err))
-      }).then(()=>{
-        this.props.navigation.navigate("Home")
-      })
-  };
+ 
 
 
   render() {
@@ -140,8 +121,8 @@ class Basket extends Component {
           >
             <TouchableOpacity
               activeOpacity={0.8}
-             /* onPress={() => this.props.navigation.navigate("Address")} */
-             onPress={this.onSubmit}
+             onPress={() => this.props.navigation.navigate("Address")} 
+        
               style={{
                 flexDirection: "row",
                 backgroundColor: "#F08C4F",
@@ -169,7 +150,7 @@ class Basket extends Component {
                   color: "white",
                 }}
               >
-                Place your order
+          Checkout
               </Text>
             </TouchableOpacity>
          

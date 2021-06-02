@@ -30,12 +30,13 @@ class Detail extends Component {
   }
 
   onClickAddCart() {
+    var a= Math.floor((Math.random() * 10000) + 1);
     const itemcart = {
       item: this.props.navigation.state.params.detailName,
       quantity: this.state.num,
       price: this.props.navigation.state.params.detailPriceOne * this.state.num,
       image: this.props.navigation.state.params.detailImageUri,
-      id: this.props.navigation.state.params.id,
+      id: a.toString(),
     };
 
     AsyncStorage.getItem("cart")

@@ -19,11 +19,15 @@ class Register extends Component {
       full_name: "",
       email: "",
       password: "",
+      contact: "",
+      address:""
     };
 
     this.onChangeName = this.onChangeName.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
+    this.onChangeContact = this.onChangeContact.bind(this);
+    this.onChangeAddress = this.onChangeAddress.bind(this);
 
     this.onPressCompleteRegister = this.onPressCompleteRegister.bind(this);
   }
@@ -46,11 +50,27 @@ class Register extends Component {
     });
   }
 
+  onChangeContact(inputText) {
+    this.setState({
+      contact: inputText,
+    });
+  }
+
+
+  onChangeAddress(inputText) {
+    this.setState({
+      address: inputText,
+    });
+  }
+
+
   onPressCompleteRegister = () => {
     const user = {
       full_name: this.state.full_name,
       email: this.state.email,
       password: this.state.password,
+      contact: this.state.contact,
+      address: this.state.address,
     };
 
     const errors = {};
@@ -98,7 +118,7 @@ class Register extends Component {
         </Animated.View>
         <Animated.View
           style={{
-            flex: 1,
+            flex: 1.6,
             paddingHorizontal: hp("2.5%"),
             marginBottom: Platform.OS == "android" ? hp("10%") : null,
             marginTop: this.formPosition,
@@ -106,6 +126,8 @@ class Register extends Component {
         >
           {/* form */}
           <Input label="Your name" placeholder="Enter your Full name"  value={this.state.full_name} onChange={this.onChangeName} />
+          <Input label="Your contact number" placeholder="Contact" value={this.state.contact} onChange={this.onChangeContact} />
+          <Input label="Your address" placeholder="Address" value={this.state.address} onChange={this.onChangeAddress} />
           <Input label="Your email address" placeholder="Email address" value={this.state.email} onChange={this.onChangeEmail} />
           <Input label="Your password" placeholder="Password" value={this.state.password} onChange={this.onChangePassword} />
         </Animated.View>

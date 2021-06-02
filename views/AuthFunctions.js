@@ -9,6 +9,8 @@ export const register = (newUser) => {
       full_name: newUser.full_name,
       email: newUser.email,
       password: newUser.password,
+      address: newUser.address,
+      contact: newUser.contact,
     })
     .then((response) => {
       console.log("Registered");
@@ -23,6 +25,7 @@ export const login = (user) => {
     .post(ip + ":3700/gift/login", {
       email: user.email,
       password: user.password,
+     
     })
     .then((response) => {
       console.log(response.data);
@@ -30,6 +33,8 @@ export const login = (user) => {
       const datas = {
         name: response.data.body.full_name,
         Email: response.data.body.email,
+        address: response.data.body.address,
+        contact: response.data.body.contact,
         id: response.data.body._id,
       };
       
