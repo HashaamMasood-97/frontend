@@ -1,8 +1,5 @@
 import Main from "./extras/MainComponent";
-import Product from "./extras/ProductComponent";
-import Cards from "./extras/CardComponent";
-import Contact from "./extras/ContactComponent";
-import PostContact from "./extras/PostContactComponent";
+import Product from "./views/ProductComponent";
 import Category from "./views/Category";
 import Register from "./views/Register";
 import Login from "./views/Login";
@@ -12,6 +9,8 @@ import Detail from "./views/Detail";
 import Basket from "./views/Basket";
 import Address from "./views/Address";
 import Payment from "./views/Payment";
+import Orders from "./views/Orders";
+import OrderDetails from "./views/OrderDetails";
 import Totalquantity from "./components/Totalquantity";
 import React from "react";
 import { createStackNavigator } from "react-navigation-stack";
@@ -57,7 +56,7 @@ const HomeStackNavigator = createStackNavigator({
         headerRight: () => (
           <View style={{ flexDirection: "row" }}>
             <Icon
-              onPress={() => navigation.openDrawer()}
+              onPress={() => navigation.navigate("Product")}
               name="ios-search"
               color="white"
               size={30}
@@ -227,21 +226,17 @@ const AppNavigator = createStackNavigator(
     Product: {
       screen: Product,
     },
-    Cards: {
-      screen: Cards,
-    },
-    Contact: {
-      screen: Contact,
-    },
-    PostContact: {
-      screen: PostContact,
-    },
-
     Address: {
       screen: Address,
     },
     Payment: {
       screen: Payment,
+    },
+    Orders: {
+      screen: Orders,
+    },
+    OrderDetails: {
+      screen: OrderDetails,
     },
   },
   {
@@ -265,7 +260,6 @@ const AppSwitchNavigator = createSwitchNavigator({
   Main: {
     screen: AppNavigator,
   },
-
   Category: {
     screen: CategoryStackNavigator,
   },

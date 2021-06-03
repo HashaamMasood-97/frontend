@@ -4,7 +4,7 @@ import { ListItem, SearchBar } from "react-native-elements";
 import axios from "axios";
 import {ip} from "../ip/ip";
 
-export class Product extends Component {
+export class Orders extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,7 +16,7 @@ export class Product extends Component {
 
   componentDidMount() {
     axios
-      .get(ip+":3700/gift/product/get")
+      .get(ip+":3700/gift/order/gets/"+this.props.navigation.state.params.id)
       .then((response) => {
         this.setState({ gift: response.data });
       })
@@ -30,8 +30,9 @@ export class Product extends Component {
 
     let filteredData = this.state.gift.filter(function (item) {
       return (
-        item.name.toLowerCase().includes(search) ||
-        item.priceOne.toLowerCase().includes(search)
+        item._id.toLowerCase().includes(search) ||
+        item.totalQty.toLowerCase().includes(search) ||
+        item.totalPrice.toLowerCase().includes(search)
       );
     });
 
@@ -39,7 +40,7 @@ export class Product extends Component {
   };
 
   static navigationOptions = {
-    title: "Product",
+    title: "Order",
   };
 
   render() {
@@ -47,10 +48,17 @@ export class Product extends Component {
       return (
         <ListItem
           key={index}
-          title={item.name}
-          subtitle={item.priceOne}
-          hideChevron={true}
-          leftAvatar={{ source: {uri: ip+":3700/"+item.photo} }} 
+          title={"Order Id: " + item._id}
+          subtitle={"Date: "+item.date + " | " + "Quantity: "+item.totalQty + " | " + "Total: "+item.totalPrice}
+          onPress={() => {
+            this.props.navigation.navigate("OrderDetails", {
+              totalQty:item.totalQty,
+              totalPrice:item.totalPrice,
+              products:item.products,
+              date:item.date
+            })
+  
+          }}
         />
       );
     };
@@ -81,4 +89,4 @@ export class Product extends Component {
   }
 }
 
-export default Product;
+export default Orders;

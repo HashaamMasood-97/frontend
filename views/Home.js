@@ -104,8 +104,8 @@ class Home extends Component {
         <FlatListSlider data={data} />
         <Text style={{
           paddingHorizontal: 20,
-          fontWeight: "bold",
-          fontSize: 30,
+         
+          fontSize: 20,
           paddingTop:20,
         }}>Categories</Text>
       </View>
@@ -113,14 +113,14 @@ class Home extends Component {
 
     const footerComponent = () => (
       <View style={{
-        paddingTop:30,
+        paddingTop:20,
 
      
       }}>
         <Text style={{
           paddingHorizontal: 20,
-          fontWeight: "bold",
-          fontSize: 30
+     
+          fontSize: 20
         }}>Featured Products</Text>
         <FlatListSlider
           data={images}

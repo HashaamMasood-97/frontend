@@ -4,7 +4,7 @@ import { ListItem, SearchBar } from "react-native-elements";
 import axios from "axios";
 import {ip} from "../ip/ip";
 
-export class Contact extends Component {
+export class Product extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,7 +16,7 @@ export class Contact extends Component {
 
   componentDidMount() {
     axios
-      .get(ip+":3700/gift/contact/get")
+      .get(ip+":3700/gift/product/get")
       .then((response) => {
         this.setState({ gift: response.data });
       })
@@ -30,7 +30,8 @@ export class Contact extends Component {
 
     let filteredData = this.state.gift.filter(function (item) {
       return (
-        item.name.toLowerCase().includes(search)
+        item.name.toLowerCase().includes(search) ||
+        item.priceOne.toLowerCase().includes(search)
       );
     });
 
@@ -38,7 +39,7 @@ export class Contact extends Component {
   };
 
   static navigationOptions = {
-    title: "Contact",
+    title: "Product",
   };
 
   render() {
@@ -47,9 +48,17 @@ export class Contact extends Component {
         <ListItem
           key={index}
           title={item.name}
-          subtitle={item.phone}
+          subtitle={"Category: " + item.category + " | " + "Price: " + item.priceOne  }
           hideChevron={true}
           leftAvatar={{ source: {uri: ip+":3700/"+item.photo} }} 
+          onPress={() =>
+            this.props.navigation.navigate("Detail", {
+              detailName: item.name,
+              detailImageUri: { uri: ip + ":3700/" + item.photo },
+              detailPriceOne: item.priceOne,
+              detailPriceTwo: item.priceTwo ? item.priceTwo : null,
+            })
+          }
         />
       );
     };
@@ -80,4 +89,4 @@ export class Contact extends Component {
   }
 }
 
-export default Contact;
+export default Product;

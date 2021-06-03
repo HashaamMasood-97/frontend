@@ -18,6 +18,7 @@ class CustomDrawerComponent extends Component {
   state = {
     name: "",
     email: "",
+    id:""
   };
 
   getData = async () => {
@@ -26,6 +27,7 @@ class CustomDrawerComponent extends Component {
         const data = JSON.parse(value);
         this.setState({ name: data.name });
         this.setState({ email: data.Email });
+        this.setState({ id: data.id });
         console.log(value);
       });
     } catch (e) {}
@@ -178,12 +180,15 @@ class CustomDrawerComponent extends Component {
                     marginLeft: wp("4.5%"),
                   }}
                 >
-                  home
+                  Home
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
-                  this.props.navigation.closeDrawer();
+                  this.props.navigation.navigate("Orders", {
+                    id: this.state.id,
+                  })
+        
                 }}
                 style={{
                   flexDirection: "row",
@@ -200,7 +205,7 @@ class CustomDrawerComponent extends Component {
                     marginLeft: wp("4.5%"),
                   }}
                 >
-                  search
+              Orders
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity

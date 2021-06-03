@@ -6,23 +6,7 @@ class Main extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>hey Open up App.js to start working on your app!</Text>
-        <Button
-          title="Go to Product"
-          onPress={() => this.props.navigation.navigate("Product")}
-        />
-        <Button
-          title="Go to Card"
-          onPress={() => this.props.navigation.navigate("Cards")}
-        />
-        <Button
-          title="Go to Contact"
-          onPress={() => this.props.navigation.navigate("Contact")}
-        />
-        <Button
-          title="Go to PostContact"
-          onPress={() => this.props.navigation.navigate("PostContact")}
-        />
+       
        
         <Button
           title="Go to Register"
