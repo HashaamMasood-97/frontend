@@ -11,15 +11,17 @@ import axios from "axios";
 import { ip } from "../ip/ip";
 import { SearchBar } from "react-native-elements";
 
-const CATEGORY = ["Chocolate", "Fashion Accessories"];
+const CATEGORY = ["Chocolate", "Fashion Accessories", "Gift Basket", "Grooming Kit"];
 
 class Category extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentIndex: 0,
+      currentIndex:  0,
       chocolate: [],
       fashion: [],
+      basket: [],
+      grooming: [],
       search: "",
     };
     this.updateSearch = this.updateSearch.bind(this);
@@ -43,6 +45,25 @@ class Category extends Component {
       .get(ip + ":3700/gift/product/fashion")
       .then((response) => {
         this.setState({ fashion: response.data });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+
+      axios
+      .get(ip + ":3700/gift/product/basket")
+      .then((response) => {
+        this.setState({ basket: response.data });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+      axios
+      .get(ip + ":3700/gift/product/grooming")
+      .then((response) => {
+        this.setState({ grooming: response.data });
       })
       .catch(function (error) {
         console.log(error);
@@ -136,11 +157,81 @@ class Category extends Component {
       });
   };
 
+
+  renderItemList_Basket = () => {
+    return this.state.basket
+      .filter((product) => {
+        return (
+          product.name
+            .toLowerCase()
+            .indexOf(this.state.search.toLowerCase()) !== -1 ||
+          product.priceOne.indexOf(this.state.search.toLowerCase()) !== -1
+        );
+      })
+      .map((item, i) => {
+        return (
+          <ItemList
+            onPress={() =>
+              this.props.navigation.navigate("Detail", {
+                detailName: item.name,
+                detailImageUri: { uri: ip + ":3700/" + item.photo },
+                detailPriceOne: item.priceOne,
+                detailPriceTwo: item.priceTwo ? item.priceTwo : null,
+              })
+            }
+            key={item._id}
+            imageUri={{ uri: ip + ":3700/" + item.photo }}
+            name={item.name}
+            priceOne={item.priceOne}
+            priceTwo={item.priceTwo ? item.priceTwo : null}
+          />
+        );
+      });
+  };
+
+
+  renderItemList_Grooming = () => {
+    return this.state.grooming
+      .filter((product) => {
+        return (
+          product.name
+            .toLowerCase()
+            .indexOf(this.state.search.toLowerCase()) !== -1 ||
+          product.priceOne.indexOf(this.state.search.toLowerCase()) !== -1
+        );
+      })
+      .map((item, i) => {
+        return (
+          <ItemList
+            onPress={() =>
+              this.props.navigation.navigate("Detail", {
+                detailName: item.name,
+                detailImageUri: { uri: ip + ":3700/" + item.photo },
+                detailPriceOne: item.priceOne,
+                detailPriceTwo: item.priceTwo ? item.priceTwo : null,
+              })
+            }
+            key={item._id}
+            imageUri={{ uri: ip + ":3700/" + item.photo }}
+            name={item.name}
+            priceOne={item.priceOne}
+            priceTwo={item.priceTwo ? item.priceTwo : null}
+          />
+        );
+      });
+  };
+
   renderItemList = () => {
     if (this.state.currentIndex === 0) {
       return this.renderItemList_Chocolate();
     } else if (this.state.currentIndex === 1) {
       return this.renderItemList_Fashion();
+    }
+    else if (this.state.currentIndex === 2) {
+      return this.renderItemList_Basket();
+    }
+    else if (this.state.currentIndex === 3) {
+      return this.renderItemList_Grooming();
     }
   };
 

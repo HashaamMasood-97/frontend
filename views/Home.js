@@ -73,6 +73,7 @@ class Home extends Component {
   }
 
   render() {
+    
     const renderMenuItem = ({ item, index }) => {
       return (
         <ListItem
@@ -82,7 +83,7 @@ class Home extends Component {
           leftAvatar={{ source: { uri: item.image } }}
           onPress={() => {
             this.props.navigation.navigate("Category", {
-              id: item.id,
+              id: 0,
             });
           }}
         />
