@@ -1,11 +1,14 @@
 import React, { Component } from "react";
-import { View, ImageBackground, Platform, Animated } from "react-native";
+import { View, ImageBackground, Platform, Animated, Text } from "react-native";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import Input from "../components/Input";
 import Button from "../components/Button";
-import { register } from "../Authentication/AuthFunctions";
+import ValidationComponent from "react-native-form-validator";
+import { ip } from "../ip/ip";
+import { Alert } from "react-native";
+import axios from "axios";
 
-class Register extends Component {
+class Register extends ValidationComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,67 +19,56 @@ class Register extends Component {
       address: "",
     };
 
-    this.onChangeName = this.onChangeName.bind(this);
-    this.onChangeEmail = this.onChangeEmail.bind(this);
-    this.onChangePassword = this.onChangePassword.bind(this);
-    this.onChangeContact = this.onChangeContact.bind(this);
-    this.onChangeAddress = this.onChangeAddress.bind(this);
-
     this.onPressCompleteRegister = this.onPressCompleteRegister.bind(this);
   }
 
-  onChangeName(inputText) {
-    this.setState({
-      full_name: inputText,
-    });
-  }
 
-  onChangePassword(inputText) {
-    this.setState({
-      password: inputText,
-    });
-  }
-
-  onChangeEmail(inputText) {
-    this.setState({
-      email: inputText,
-    });
-  }
-
-  onChangeContact(inputText) {
-    this.setState({
-      contact: inputText,
-    });
-  }
-
-  onChangeAddress(inputText) {
-    this.setState({
-      address: inputText,
-    });
-  }
 
   onPressCompleteRegister = () => {
-    const user = {
-      full_name: this.state.full_name,
-      email: this.state.email,
-      password: this.state.password,
-      contact: this.state.contact,
-      address: this.state.address,
-    };
+    this.validate({
+      full_name: { minlength: 3, required: true },
+      contact: { minlength: 7, required: true, numbers: true },
+      address: { required: true },
+      email: { email: true, required: true },
+      password: { minlength: 7, required: true },
+    });
 
-    const errors = {};
-    const emailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    errors.email = !user.email.match(emailformat) ? "Invalid Email" : "";
-    errors.password =
-      user.password.length < 6
-        ? "Password should be more than 6 characters"
-        : "";
-    console.log(errors);
-
-    if (errors.email === "" && errors.password === "") {
-      register(user).then(() => {
-        this.props.navigation.navigate("Home");
-      });
+    if (
+      !this.isFieldInError("full_name") &&
+      !this.isFieldInError("contact") &&
+      !this.isFieldInError("email") &&
+      !this.isFieldInError("address") &&
+      !this.isFieldInError("password")
+    ) {
+      axios
+        .post(ip + ":3700/gift/register", {
+          full_name: this.state.full_name,
+          email: this.state.email,
+          password: this.state.password,
+          address: this.state.address,
+          contact: this.state.contact,
+        })
+        .then((response) => {
+          Alert.alert(
+            response.data.header.message,
+            "",
+            [
+              {
+                text: "OK",
+                onPress: () => {
+                  if (response.data.header.error === 0) {
+                   setTimeout(()=>this.props.navigation.navigate("LoginScreen"),2000);
+                  } else {
+                    console.log("Ok");
+                  }
+                },
+              },
+            ]
+          );
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   };
   render() {
@@ -107,7 +99,7 @@ class Register extends Component {
         </Animated.View>
         <Animated.View
           style={{
-            flex: 1.6,
+            flex: 3,
             paddingHorizontal: hp("2.5%"),
             marginBottom: Platform.OS == "android" ? hp("10%") : null,
             marginTop: this.formPosition,
@@ -117,32 +109,130 @@ class Register extends Component {
             label="Your name"
             placeholder="Enter your Full name"
             value={this.state.full_name}
-            onChange={this.onChangeName}
+            onChange={(full_name) => {
+              this.setState({ full_name });
+            }}
           />
+          {this.isFieldInError("full_name") &&
+            this.getErrorsInField("full_name").map((errorMessage, key) => (
+              <Text
+                style={{
+                  color: "red",
+                  fontWeight: "bold",
+                  paddingBottom: 5,
+                  fontSize: 12,
+                }}
+                key={key}
+              >
+                {errorMessage}
+              </Text>
+            ))}
           <Input
             label="Your contact number"
             placeholder="Contact"
             value={this.state.contact}
-            onChange={this.onChangeContact}
+            onChange={(contact) => {
+              this.setState({ contact });
+            }}
           />
+          {this.isFieldInError("contact") &&
+            this.getErrorsInField("contact").map((errorMessage, key) => (
+              <Text
+                style={{
+                  color: "red",
+                  fontWeight: "bold",
+                  paddingBottom: 5,
+                  fontSize: 12,
+                }}
+                key={key}
+              >
+                {errorMessage}
+              </Text>
+            ))}
           <Input
             label="Your address"
             placeholder="Address"
             value={this.state.address}
-            onChange={this.onChangeAddress}
+            onChange={(address) => {
+              this.setState({ address });
+            }}
           />
+          {this.isFieldInError("address") &&
+            this.getErrorsInField("address").map((errorMessage, key) => (
+              <Text
+                style={{
+                  color: "red",
+                  fontWeight: "bold",
+                  paddingBottom: 5,
+                  fontSize: 12,
+                }}
+                key={key}
+              >
+                {errorMessage}
+              </Text>
+            ))}
           <Input
             label="Your email address"
             placeholder="Email address"
             value={this.state.email}
-            onChange={this.onChangeEmail}
+            onChange={(email) => {
+              this.setState({ email });
+            }}
           />
+          {this.isFieldInError("email") &&
+            this.getErrorsInField("email").map((errorMessage, key) => (
+              <Text
+                style={{
+                  color: "red",
+                  fontWeight: "bold",
+                  paddingBottom: 5,
+                  fontSize: 12,
+                }}
+                key={key}
+              >
+                {errorMessage}
+              </Text>
+            ))}
           <Input
             label="Your password"
             placeholder="Password"
             value={this.state.password}
-            onChange={this.onChangePassword}
+            onChange={(password) => {
+              this.setState({ password });
+            }}
           />
+          {this.isFieldInError("password") &&
+            this.getErrorsInField("password").map((errorMessage, key) => (
+              <Text
+                style={{
+                  color: "red",
+                  fontWeight: "bold",
+                  paddingBottom: 5,
+                  fontSize: 12,
+                }}
+                key={key}
+              >
+                {errorMessage}
+              </Text>
+            ))}
+
+          <Text
+            style={{
+              fontWeight: "500",
+              color: "gray",
+            }}
+          >
+            Already have an Account?{" "}
+            <Text
+              style={{
+                color: "#F08C4F",
+                fontSize: 15,
+              }}
+              onPress={() => this.props.navigation.navigate("LoginScreen")}
+            >
+              Login
+            </Text>
+          </Text>
         </Animated.View>
         <View
           style={{

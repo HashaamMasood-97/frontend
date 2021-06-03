@@ -10,9 +10,13 @@ import {
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import Input from "../components/Input";
 import Button from "../components/Button";
-import { login } from "../Authentication/AuthFunctions";
+import axios from "axios";
+import { ip } from "../ip/ip";
+import { Alert } from "react-native";
+import AsyncStorage from "@react-native-community/async-storage";
+import ValidationComponent from "react-native-form-validator";
 
-class LoginScreen extends Component {
+class LoginScreen extends ValidationComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -20,43 +24,47 @@ class LoginScreen extends Component {
       password: "",
     };
 
-    this.onChangeEmail = this.onChangeEmail.bind(this);
-    this.onChangePassword = this.onChangePassword.bind(this);
-
     this.onPressCompleteLogin = this.onPressCompleteLogin.bind(this);
   }
 
-  onChangePassword(inputText) {
-    this.setState({
-      password: inputText,
-    });
-  }
-
-  onChangeEmail(inputText) {
-    this.setState({
-      email: inputText,
-    });
-  }
-
   onPressCompleteLogin = () => {
-    const user = {
-      email: this.state.email,
-      password: this.state.password,
-    };
+    this.validate({
+      email: { email: true, required: true },
+      password: { minlength: 7,required: true },
+    });
 
-    const errors = {};
-    const emailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    errors.email = !user.email.match(emailformat) ? "Invalid Email" : "";
-    errors.password =
-      user.password.length < 8
-        ? "Password should be more than 7 characters"
-        : "";
-    console.log(errors);
+    if (!this.isFieldInError("email") && !this.isFieldInError("password")) {
+      axios
+        .post(ip + ":3700/gift/login", {
+          email: this.state.email,
+          password: this.state.password,
+        })
+        .then((response) => {
+          console.log(response.data);
 
-    if (errors.email === "" && errors.password === "") {
-      login(user).then(() => {
-        this.props.navigation.navigate("Home");
-      });
+          const datas = {
+            name: response.data.body.full_name,
+            Email: response.data.body.email,
+            address: response.data.body.address,
+            contact: response.data.body.contact,
+            id: response.data.body._id,
+          };
+
+          AsyncStorage.setItem("token", JSON.stringify(datas))
+            .then(() => {
+              console.log("It was saved successfully");
+            })
+            .catch(() => {
+              console.log("There was an error saving the product");
+            });
+
+          return response.data;
+        }).then(()=>{
+          this.props.navigation.navigate("Home")
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   };
   render() {
@@ -98,14 +106,46 @@ class LoginScreen extends Component {
             label="Your email address"
             placeholder="Email address"
             value={this.state.email}
-            onChange={this.onChangeEmail}
+            onChange={(email) => {
+              this.setState({ email });
+            }}
           />
+            {this.isFieldInError("email") &&
+            this.getErrorsInField("email").map((errorMessage, key) => (
+              <Text
+                style={{
+                  color: "red",
+                  fontWeight: "bold",
+                  paddingBottom: 5,
+                  fontSize: 12,
+                }}
+                key={key}
+              >
+                {errorMessage}
+              </Text>
+            ))}
           <Input
             label="Your password"
             placeholder="Password"
             value={this.state.password}
-            onChange={this.onChangePassword}
+            onChange={(password) => {
+              this.setState({ password });
+            }}
           />
+            {this.isFieldInError("password") &&
+            this.getErrorsInField("password").map((errorMessage, key) => (
+              <Text
+                style={{
+                  color: "red",
+                  fontWeight: "bold",
+                  paddingBottom: 5,
+                  fontSize: 12,
+                }}
+                key={key}
+              >
+                {errorMessage}
+              </Text>
+            ))}
           <Text
             style={{
               fontWeight: "500",
@@ -118,6 +158,7 @@ class LoginScreen extends Component {
                 color: "#F08C4F",
                 fontSize: 15,
               }}
+              onPress={() => this.props.navigation.navigate("Register")}
             >
               SignUp
             </Text>

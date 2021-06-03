@@ -18,7 +18,7 @@ class CustomDrawerComponent extends Component {
   state = {
     name: "",
     email: "",
-    id:""
+    id: "",
   };
 
   getData = async () => {
@@ -187,8 +187,7 @@ class CustomDrawerComponent extends Component {
                 onPress={() => {
                   this.props.navigation.navigate("Orders", {
                     id: this.state.id,
-                  })
-        
+                  });
                 }}
                 style={{
                   flexDirection: "row",
@@ -205,7 +204,7 @@ class CustomDrawerComponent extends Component {
                     marginLeft: wp("4.5%"),
                   }}
                 >
-              Orders
+                  Orders
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -283,5 +282,3 @@ class CustomDrawerComponent extends Component {
 }
 
 export default CustomDrawerComponent;
-
-

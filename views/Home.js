@@ -6,13 +6,16 @@ import { ListItem, SearchBar } from "react-native-elements";
 
 const data = [
   {
-    image: "https://images.unsplash.com/photo-1607469256872-48074e807b0a?ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8Z2lmdHN8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80",
+    image:
+      "https://images.unsplash.com/photo-1607469256872-48074e807b0a?ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8Z2lmdHN8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80",
   },
   {
-    image: "https://lh3.googleusercontent.com/proxy/Y5wOgZYRdOs-qjkWZkYkWueyvIrOxkTVWjdraRkGflAenlKtgqaMZrWT6Brac4x6cPLjUqNNj4JQ8lxPqvklBROZ1lowTAU",
+    image:
+      "https://lh3.googleusercontent.com/proxy/Y5wOgZYRdOs-qjkWZkYkWueyvIrOxkTVWjdraRkGflAenlKtgqaMZrWT6Brac4x6cPLjUqNNj4JQ8lxPqvklBROZ1lowTAU",
   },
   {
-    image: "https://www.shutterfly.com/ideas/wp-content/uploads/2018/01/creative-gift-ideas-dyed-handkerchiefs.jpg",
+    image:
+      "https://www.shutterfly.com/ideas/wp-content/uploads/2018/01/creative-gift-ideas-dyed-handkerchiefs.jpg",
   },
 ];
 
@@ -20,8 +23,7 @@ const images = [
   {
     image:
       "https://shop.alqasimjewellers.com/wp-content/uploads/2020/01/wp-1579125438143.jpg",
-    desc:
-      "Open Able Bangle Or Bracelet, Metal Type, 925 Sterling Silver, 21K Gold And Rhodium Plated ...",
+    desc: "Open Able Bangle Or Bracelet, Metal Type, 925 Sterling Silver, 21K Gold And Rhodium Plated ...",
   },
   {
     image:
@@ -29,16 +31,9 @@ const images = [
     desc: "Impress your special ones with this master piece..",
   },
   {
-    image:
-      "https://images-na.ssl-images-amazon.com/images/I/51ZAV1CypKL.jpg",
-    desc:
-      "Nivea Creme Tin 75ml, Cares and hydrates the skin and prevents it from drying out ...",
+    image: "https://images-na.ssl-images-amazon.com/images/I/51ZAV1CypKL.jpg",
+    desc: "Nivea Creme Tin 75ml, Cares and hydrates the skin and prevents it from drying out ...",
   },
-
-  
-  
-  
-  
 ];
 
 const category = [
@@ -66,7 +61,6 @@ const category = [
       "https://i.pinimg.com/236x/95/08/0c/95080c7e3f431e4c23e0635d76563353.jpg",
     desc: "Grooming Kits",
   },
- 
 ];
 
 class Home extends Component {
@@ -75,13 +69,10 @@ class Home extends Component {
   };
 
   componentDidMount() {
-
     this.forceUpdate();
-
-}
+  }
 
   render() {
-    const { navigate } = this.props.navigation;
     const renderMenuItem = ({ item, index }) => {
       return (
         <ListItem
@@ -89,39 +80,50 @@ class Home extends Component {
           title={item.desc}
           hideChevron={true}
           leftAvatar={{ source: { uri: item.image } }}
-          onPress={() => navigate("Category", { currentIndex: item.id })}
+          onPress={() => {
+            this.props.navigation.navigate("Category", {
+              id: item.id,
+            });
+          }}
         />
       );
     };
 
     const headerComponent = () => (
-      <View style={{
-        paddingBottom:10,
-
-     
-      }}>
-       
+      <View
+        style={{
+          paddingBottom: 10,
+        }}
+      >
         <FlatListSlider data={data} />
-        <Text style={{
-          paddingHorizontal: 20,
-         
-          fontSize: 20,
-          paddingTop:20,
-        }}>Categories</Text>
+        <Text
+          style={{
+            paddingHorizontal: 20,
+
+            fontSize: 20,
+            paddingTop: 20,
+          }}
+        >
+          Categories
+        </Text>
       </View>
     );
 
     const footerComponent = () => (
-      <View style={{
-        paddingTop:20,
+      <View
+        style={{
+          paddingTop: 20,
+        }}
+      >
+        <Text
+          style={{
+            paddingHorizontal: 20,
 
-     
-      }}>
-        <Text style={{
-          paddingHorizontal: 20,
-     
-          fontSize: 20
-        }}>Featured Products</Text>
+            fontSize: 20,
+          }}
+        >
+          Featured Products
+        </Text>
         <FlatListSlider
           data={images}
           width={275}
@@ -135,15 +137,13 @@ class Home extends Component {
     );
     return (
       <View>
-        
-          <FlatList
-            data={this.state.cat}
-            renderItem={renderMenuItem}
-            keyExtractor={(item) => item.id.toString()}
-            ListHeaderComponent={headerComponent}
-            ListFooterComponent={footerComponent}
-          />
-    
+        <FlatList
+          data={this.state.cat}
+          renderItem={renderMenuItem}
+          keyExtractor={(item) => item.id.toString()}
+          ListHeaderComponent={headerComponent}
+          ListFooterComponent={footerComponent}
+        />
       </View>
     );
   }

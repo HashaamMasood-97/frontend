@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, TouchableOpacity, TextInput } from "react-native";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 
-const Input = ({ label, placeholder, value, widthHalf, onChange }) => {
+const Input = ({ label, placeholder, value, widthHalf, onChange,name}) => {
   return (
     <View
       style={{
@@ -55,7 +55,9 @@ const Input = ({ label, placeholder, value, widthHalf, onChange }) => {
           value={value}
           placeholder={placeholder}
           onChangeText={onChange}
+       
         />
+       
       </TouchableOpacity>
     </View>
   );
