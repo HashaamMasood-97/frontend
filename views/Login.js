@@ -19,7 +19,7 @@ class Login extends Component {
       const value = await AsyncStorage.getItem("token");
 
       if (value !== null) {
-        console.log(value);
+        this.props.navigation.navigate("Home");
       } else console.log("Logged Out");
     } catch (e) {}
   };

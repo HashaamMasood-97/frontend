@@ -16,6 +16,8 @@ import {
 import Icon from "@expo/vector-icons/Ionicons";
 import Counter from "react-native-counters";
 import AsyncStorage from "@react-native-community/async-storage";
+import { FancyAlert } from "react-native-expo-fancy-alerts";
+import { color } from "react-native-reanimated";
 
 const { width } = Dimensions.get("window");
 
@@ -24,6 +26,7 @@ class Detail extends Component {
     super(props);
     this.state = {
       num: 1,
+      visible1: false,
     };
   }
 
@@ -49,16 +52,9 @@ class Detail extends Component {
           cart.push(itemcart);
           AsyncStorage.setItem("cart", JSON.stringify(cart));
         }
-        alert("Item Added TO Cart", "View Cart?", [
-          {
-            text: "Cancel",
-            onPress: () => console.log("Cancel Pressed"),
-          },
-          {
-            text: "OK",
-            onPress: this.props.navigation.navigate("Basket"),
-          },
-        ]);
+      })
+      .then(() => {
+        this.setState({ visible1: true });
       })
       .catch((err) => {
         alert(err);
@@ -98,8 +94,33 @@ class Detail extends Component {
             />
           </View>
 
-          <Text>{detailName}</Text>
-          <Counter start={1} onChange={this.onChange.bind(this)} />
+          <Text
+            style={{
+              textAlign: "center",
+              paddingTop: 20,
+              fontSize: 22,
+              fontWeight: "bold",
+              paddingBottom: 20,
+              color: "#5BBC9D"
+            }}
+          >
+            {detailName}
+          </Text>
+
+          <View style={{
+            marginHorizontal:15,
+            marginVertical:1,
+            flexDirection:"row",
+            justifyContent:"space-between",
+            color: "black"
+          }}>
+            <Text style={{fontSize:20, paddingBottom:5, fontWeight:"bold", color:"#5BBC9D"}}>Quantity</Text>
+            <Counter
+              start={1}
+              onChange={this.onChange.bind(this)}
+            />
+          </View>
+   
 
           <View
             style={{
@@ -114,7 +135,7 @@ class Detail extends Component {
                 flexDirection: "row",
                 justifyContent: "space-between",
                 marginHorizontal: 15,
-                marginVertical: 25,
+                marginVertical: 10,
               }}
             ></View>
             <View
@@ -151,6 +172,7 @@ class Detail extends Component {
                   {detailPriceTwo}
                 </Text>
               </View>
+              
 
               <View
                 style={{
@@ -194,6 +216,7 @@ class Detail extends Component {
               </View>
             </View>
           </View>
+          
 
           <View
             style={{
@@ -231,6 +254,59 @@ class Detail extends Component {
               </Text>
             </View>
           </View>
+          <FancyAlert
+            visible={this.state.visible1}
+            icon={
+              <View
+                style={{
+                  flex: 1,
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  backgroundColor: "#5BBC9D",
+                  borderRadius: 50,
+                  width: "100%",
+                }}
+              >
+                <Text>🤓</Text>
+              </View>
+            }
+            style={{ backgroundColor: "white" }}
+          >
+            <Text
+              style={{
+                marginTop: -16,
+                marginBottom: 32,
+                fontWeight: "bold",
+                textAlign: "center",
+              }}
+            >
+              Item Added to Cart Successfully
+            </Text>
+            <TouchableOpacity
+              style={{
+                width: "70%",
+                height: 30,
+                backgroundColor: "#5BBC9D",
+                borderRadius: 50,
+                marginBottom: 5,
+                justifyContent: "center",
+              }}
+              onPress={() => {
+                this.props.navigation.navigate("Basket");
+                this.setState({ visible1: false });
+              }}
+            >
+              <Text
+                style={{
+                  textAlign: "center",
+                  fontSize: 15,
+                }}
+              >
+                Ok
+              </Text>
+            </TouchableOpacity>
+          </FancyAlert>
         </ScrollView>
       </View>
     );

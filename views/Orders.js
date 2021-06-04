@@ -50,6 +50,7 @@ export class Orders extends Component {
           key={index}
           title={"Order Id: " + item._id}
           subtitle={"Date: "+item.date + " | " + "Quantity: "+item.totalQty + " | " + "Total: "+item.totalPrice}
+          leftAvatar={{ source: require("../assets/o.jpg") }} 
           onPress={() => {
             this.props.navigation.navigate("OrderDetails", {
               totalQty:item.totalQty,

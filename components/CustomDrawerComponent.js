@@ -9,6 +9,7 @@ import {
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import Icon from "@expo/vector-icons/Ionicons";
 import AsyncStorage from "@react-native-community/async-storage";
+import { FancyAlert } from "react-native-expo-fancy-alerts";
 
 class CustomDrawerComponent extends Component {
   constructor(props) {
@@ -19,6 +20,7 @@ class CustomDrawerComponent extends Component {
     name: "",
     email: "",
     id: "",
+    visible2: false
   };
 
   getData = async () => {
@@ -40,7 +42,7 @@ class CustomDrawerComponent extends Component {
       await AsyncStorage.removeItem("token", (err) =>
         console.log("token", err)
       ).then(() => {
-        this.props.navigation.navigate("Login");
+        this.setState({visible2: true})
         console.log("removed");
       });
     } catch (error) {
@@ -109,20 +111,19 @@ class CustomDrawerComponent extends Component {
               >
                 <View
                   style={{
-                    width: wp("17%"),
-                    height: wp("17%"),
+                    width: wp("15%"),
+                    height: wp("15"),
                     overflow: "hidden",
                     borderRadius: wp("10%"),
                     marginRight: wp("4.5%"),
                   }}
                 >
                   <Image
-                    source={require("../assets/reviewer.jpg")}
+                    source={require("../assets/grren.png")}
                     style={{
-                      flex: 1,
+                      flex: 2,
                       width: null,
                       height: null,
-                      resizeMode: "contain",
                     }}
                   />
                 </View>
@@ -195,7 +196,11 @@ class CustomDrawerComponent extends Component {
                   paddingVertical: 5,
                 }}
               >
-                <Icon name="ios-search" color="white" size={40} />
+                <Icon
+                  name="ios-checkmark-done-outline"
+                  color="white"
+                  size={40}
+                />
                 <Text
                   style={{
                     color: "white",
@@ -210,7 +215,7 @@ class CustomDrawerComponent extends Component {
               <TouchableOpacity
                 onPress={() => {
                   this.props.navigation.closeDrawer();
-                  this.props.navigation.navigate("Home");
+                  this.props.navigation.navigate("Category");
                 }}
                 style={{
                   flexDirection: "row",
@@ -218,7 +223,7 @@ class CustomDrawerComponent extends Component {
                   paddingVertical: 5,
                 }}
               >
-                <Icon name="ios-list-box" color="white" size={40} />
+                <Icon name="ios-list" color="white" size={40} />
                 <Text
                   style={{
                     color: "white",
@@ -233,7 +238,7 @@ class CustomDrawerComponent extends Component {
               <TouchableOpacity
                 onPress={() => {
                   this.props.navigation.closeDrawer();
-                  this.props.navigation.navigate("Main");
+                  this.props.navigation.navigate("Basket");
                 }}
                 style={{
                   flexDirection: "row",
@@ -261,7 +266,7 @@ class CustomDrawerComponent extends Component {
                   paddingVertical: 5,
                 }}
               >
-                <Icon name="ios-cart" color="white" size={40} />
+                <Icon name="ios-exit-outline" color="white" size={40} />
                 <Text
                   style={{
                     color: "white",
@@ -270,9 +275,60 @@ class CustomDrawerComponent extends Component {
                     marginLeft: wp("4.5%"),
                   }}
                 >
-                  logout
+                  Logout
                 </Text>
               </TouchableOpacity>
+              <FancyAlert
+                visible={this.state.visible2}
+                icon={
+                  <View
+                    style={{
+                      flex: 1,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: "#5BBC9D",
+                      borderRadius: 50,
+                      width: "100%",
+                    }}
+                  >
+                    <Text>🤓</Text>
+                  </View>
+                }
+                style={{ backgroundColor: "white" }}
+              >
+                <Text
+                  style={{
+                    marginTop: -16,
+                    marginBottom: 32,
+                    fontWeight: "bold",
+                  }}
+                >
+                 Logged Out Successfully
+                </Text>
+                <TouchableOpacity
+                  style={{
+                    width: "70%",
+                    height: 30,
+                    backgroundColor: "#5BBC9D",
+                    borderRadius: 50,
+                    marginBottom: 5,
+                    justifyContent: "center",
+                  }}
+                  onPress={() => {
+                    this.props.navigation.navigate("Login");
+                  }}
+                >
+                  <Text
+                    style={{
+                      textAlign: "center",
+                      fontSize: 15,
+                    }}
+                  >
+                    Ok
+                  </Text>
+                </TouchableOpacity>
+              </FancyAlert>
             </View>
           </View>
         </ImageBackground>

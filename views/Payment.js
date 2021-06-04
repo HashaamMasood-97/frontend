@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, TouchableOpacity, FlatList } from "react-native";
+import { View, Text, TouchableOpacity, FlatList, Button } from "react-native";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import Icon from "@expo/vector-icons/Ionicons";
 
@@ -8,6 +8,7 @@ import AsyncStorage from "@react-native-community/async-storage";
 import axios from "axios";
 import { ip } from "../ip/ip";
 import { ListItem, SearchBar } from "react-native-elements";
+import { FancyAlert } from "react-native-expo-fancy-alerts";
 
 class Payment extends Component {
   constructor(props) {
@@ -21,6 +22,7 @@ class Payment extends Component {
       email: this.props.navigation.state.params.email,
       contact: this.props.navigation.state.params.contact,
       address: this.props.navigation.state.params.address,
+      visible: false,
     };
   }
 
@@ -69,7 +71,8 @@ class Payment extends Component {
         AsyncStorage.removeItem("cart", (err) => console.log("cart", err));
       })
       .then(() => {
-        this.props.navigation.navigate("Home");
+        //this.props.navigation.navigate("Home");
+        this.setState({ visible: true });
       });
   };
 
@@ -199,6 +202,53 @@ class Payment extends Component {
                 Place your order
               </Text>
             </TouchableOpacity>
+            <FancyAlert
+              visible={this.state.visible}
+              icon={
+                <View
+                  style={{
+                    flex: 1,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    backgroundColor: "#5BBC9D",
+                    borderRadius: 50,
+                    width: "100%",
+                  }}
+                >
+                  <Text>🤓</Text>
+                </View>
+              }
+              style={{ backgroundColor: "white" }}
+            >
+              <Text
+                style={{ marginTop: -16, marginBottom: 32, fontWeight: "bold" }}
+              >
+                Order Placed Successfully!
+              </Text>
+              <TouchableOpacity
+                style={{
+                  width: "70%",
+                  height: 30,
+                  backgroundColor: "#5BBC9D",
+                  borderRadius: 50,
+                  marginBottom: 5,
+                  justifyContent: "center",
+                }}
+                onPress={() => {
+                  this.props.navigation.navigate("Category");
+                }}
+              >
+                <Text
+                  style={{
+                    textAlign: "center",
+                    fontSize: 15,
+                  }}
+                >
+                  Ok
+                </Text>
+              </TouchableOpacity>
+            </FancyAlert>
           </View>
         </View>
       </View>

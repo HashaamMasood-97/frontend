@@ -1,12 +1,19 @@
 import React, { Component } from "react";
-import { View, ImageBackground, Platform, Animated, Text } from "react-native";
+import {
+  View,
+  ImageBackground,
+  Platform,
+  Animated,
+  Text,
+  TouchableOpacity,
+} from "react-native";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import ValidationComponent from "react-native-form-validator";
 import { ip } from "../ip/ip";
-import { Alert } from "react-native";
 import axios from "axios";
+import { FancyAlert } from "react-native-expo-fancy-alerts";
 
 class Register extends ValidationComponent {
   constructor(props) {
@@ -17,12 +24,13 @@ class Register extends ValidationComponent {
       password: "",
       contact: "",
       address: "",
+      visible1: false,
+      visible2: false,
+      message: "",
     };
 
     this.onPressCompleteRegister = this.onPressCompleteRegister.bind(this);
   }
-
-
 
   onPressCompleteRegister = () => {
     this.validate({
@@ -49,22 +57,13 @@ class Register extends ValidationComponent {
           contact: this.state.contact,
         })
         .then((response) => {
-          Alert.alert(
-            response.data.header.message,
-            "",
-            [
-              {
-                text: "OK",
-                onPress: () => {
-                  if (response.data.header.error === 0) {
-                   setTimeout(()=>this.props.navigation.navigate("LoginScreen"),2000);
-                  } else {
-                    console.log("Ok");
-                  }
-                },
-              },
-            ]
-          );
+          this.setState({ message: response.data.header.message });
+
+          if (response.data.header.error === 0) {
+            this.setState({ visible1: true });
+          } else {
+            this.setState({ visible2: true });
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -234,6 +233,100 @@ class Register extends ValidationComponent {
             </Text>
           </Text>
         </Animated.View>
+        <FancyAlert
+          visible={this.state.visible1}
+          icon={
+            <View
+              style={{
+                flex: 1,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: "#5BBC9D",
+                borderRadius: 50,
+                width: "100%",
+              }}
+            >
+              <Text>🤓</Text>
+            </View>
+          }
+          style={{ backgroundColor: "white" }}
+        >
+          <Text
+            style={{ marginTop: -16, marginBottom: 32, fontWeight: "bold" }}
+          >
+            {this.state.message}
+          </Text>
+          <TouchableOpacity
+            style={{
+              width: "70%",
+              height: 30,
+              backgroundColor: "#5BBC9D",
+              borderRadius: 50,
+              marginBottom: 5,
+              justifyContent: "center",
+            }}
+            onPress={() => {
+              this.props.navigation.navigate("LoginScreen");
+            }}
+          >
+            <Text
+              style={{
+                textAlign: "center",
+                fontSize: 15,
+              }}
+            >
+              Ok
+            </Text>
+          </TouchableOpacity>
+        </FancyAlert>
+        <FancyAlert
+          visible={this.state.visible2}
+          icon={
+            <View
+              style={{
+                flex: 1,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: "red",
+                borderRadius: 50,
+                width: "100%",
+              }}
+            >
+              <Text>🤓</Text>
+            </View>
+          }
+          style={{ backgroundColor: "white" }}
+        >
+          <Text
+            style={{ marginTop: -16, marginBottom: 32, fontWeight: "bold" }}
+          >
+            {this.state.message}
+          </Text>
+          <TouchableOpacity
+            style={{
+              width: "70%",
+              height: 30,
+              backgroundColor: "red",
+              borderRadius: 50,
+              marginBottom: 5,
+              justifyContent: "center",
+            }}
+            onPress={() => {
+              this.setState({ visible2: false });
+            }}
+          >
+            <Text
+              style={{
+                textAlign: "center",
+                fontSize: 15,
+              }}
+            >
+              Ok
+            </Text>
+          </TouchableOpacity>
+        </FancyAlert>
         <View
           style={{
             flex: 1,

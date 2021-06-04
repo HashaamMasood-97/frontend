@@ -65,7 +65,7 @@ const HomeStackNavigator = createStackNavigator({
             />
             <View>
               <MaterialCommunityIcons
-                onPress={() =>navigation.navigate("Basket")}
+                onPress={() => navigation.navigate("Basket")}
                 name="cart-outline"
                 color="white"
                 size={30}
@@ -157,8 +157,6 @@ const HomeStackNavigator = createStackNavigator({
     },
   },
 
-
-  
   Product: {
     screen: Product,
     navigationOptions: ({ navigation }) => {
@@ -204,8 +202,6 @@ const HomeStackNavigator = createStackNavigator({
     },
   },
 
-
-
   Orders: {
     screen: Orders,
     navigationOptions: ({ navigation }) => {
@@ -231,7 +227,6 @@ const HomeStackNavigator = createStackNavigator({
       };
     },
   },
-
 
   OrderDetails: {
     screen: OrderDetails,
@@ -310,7 +305,6 @@ const HomeStackNavigator = createStackNavigator({
       };
     },
   },
-
 });
 
 const CategoryStackNavigator = createStackNavigator({
@@ -358,8 +352,6 @@ const CategoryStackNavigator = createStackNavigator({
       };
     },
   },
-
-
 });
 
 const HomeDrawNavigator = createDrawerNavigator(
@@ -374,7 +366,6 @@ const HomeDrawNavigator = createDrawerNavigator(
   }
 );
 
-
 const CategoryDrawNavigator = createDrawerNavigator(
   {
     Home: {
@@ -386,7 +377,6 @@ const CategoryDrawNavigator = createDrawerNavigator(
     contentComponent: CustomDrawerComponent,
   }
 );
-
 
 const AppSwitchNavigator = createSwitchNavigator({
   Login: {
