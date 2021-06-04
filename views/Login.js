@@ -56,11 +56,11 @@ class Login extends Component {
           <Text
             style={{
             
-              fontSize: 90,
+              fontSize: 80,
               fontWeight: "bold",
             }}
           >
-            fash.
+            Gift.
           </Text>
           <Text
             style={{
@@ -68,7 +68,7 @@ class Login extends Component {
               fontWeight: "400",
             }}
           >
-            your 24h fash.store
+            your 24h Gift.store
           </Text>
         </View>
         <View

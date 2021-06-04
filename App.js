@@ -1,4 +1,3 @@
-import Main from "./extras/MainComponent";
 import Product from "./views/ProductComponent";
 import Category from "./views/Category";
 import Register from "./views/Register";
@@ -66,7 +65,7 @@ const HomeStackNavigator = createStackNavigator({
             />
             <View>
               <MaterialCommunityIcons
-                onPress={() => navigation.openDrawer()}
+                onPress={() =>navigation.navigate("Basket")}
                 name="cart-outline"
                 color="white"
                 size={30}
@@ -112,7 +111,7 @@ const HomeStackNavigator = createStackNavigator({
         headerRight: () => (
           <View>
             <MaterialCommunityIcons
-              onPress={() => navigation.openDrawer()}
+              onPress={() => navigation.navigate("Basket")}
               name="cart-outline"
               color="white"
               size={30}
@@ -157,14 +156,14 @@ const HomeStackNavigator = createStackNavigator({
       };
     },
   },
-});
 
-const CategoryStackNavigator = createStackNavigator({
-  Category: {
-    screen: Category,
+
+  
+  Product: {
+    screen: Product,
     navigationOptions: ({ navigation }) => {
       return {
-        headerTitle: "Category",
+        headerTitle: "All Products",
         headerTitleStyle: {
           color: "white",
         },
@@ -185,7 +184,7 @@ const CategoryStackNavigator = createStackNavigator({
         headerRight: () => (
           <View>
             <MaterialCommunityIcons
-              onPress={() => navigation.openDrawer()}
+              onPress={() => navigation.navigate("Basket")}
               name="cart-outline"
               color="white"
               size={30}
@@ -204,6 +203,163 @@ const CategoryStackNavigator = createStackNavigator({
       };
     },
   },
+
+
+
+  Orders: {
+    screen: Orders,
+    navigationOptions: ({ navigation }) => {
+      return {
+        headerTitle: "Orders",
+        headerTitleStyle: {
+          color: "white",
+        },
+        headerStyle: {
+          backgroundColor: "#5BBC9D",
+        },
+        headerLeft: () => (
+          <Icon
+            onPress={() => navigation.openDrawer()}
+            name="md-menu"
+            color="white"
+            size={30}
+            style={{
+              paddingLeft: 10,
+            }}
+          />
+        ),
+      };
+    },
+  },
+
+
+  OrderDetails: {
+    screen: OrderDetails,
+    navigationOptions: ({ navigation }) => {
+      return {
+        headerTitle: "Order Detials",
+        headerTitleStyle: {
+          color: "white",
+        },
+        headerStyle: {
+          backgroundColor: "#5BBC9D",
+        },
+        headerLeft: () => (
+          <AntDesign
+            name="arrowleft"
+            onPress={() => navigation.navigate("Orders")}
+            color="white"
+            size={30}
+            style={{
+              paddingLeft: 10,
+            }}
+          />
+        ),
+      };
+    },
+  },
+
+  Address: {
+    screen: Address,
+    navigationOptions: ({ navigation }) => {
+      return {
+        headerTitle: "Address",
+        headerTitleStyle: {
+          color: "white",
+        },
+        headerStyle: {
+          backgroundColor: "#5BBC9D",
+        },
+        headerLeft: () => (
+          <AntDesign
+            name="arrowleft"
+            onPress={() => navigation.navigate("Basket")}
+            color="white"
+            size={30}
+            style={{
+              paddingLeft: 10,
+            }}
+          />
+        ),
+      };
+    },
+  },
+
+  Payment: {
+    screen: Payment,
+    navigationOptions: ({ navigation }) => {
+      return {
+        headerTitle: "Checkout",
+        headerTitleStyle: {
+          color: "white",
+        },
+        headerStyle: {
+          backgroundColor: "#5BBC9D",
+        },
+        headerLeft: () => (
+          <AntDesign
+            name="arrowleft"
+            onPress={() => navigation.navigate("Address")}
+            color="white"
+            size={30}
+            style={{
+              paddingLeft: 10,
+            }}
+          />
+        ),
+      };
+    },
+  },
+
+});
+
+const CategoryStackNavigator = createStackNavigator({
+  Category: {
+    screen: Category,
+    navigationOptions: ({ navigation }) => {
+      return {
+        headerTitle: "Category",
+        headerTitleStyle: {
+          color: "white",
+        },
+        headerStyle: {
+          backgroundColor: "#5BBC9D",
+        },
+        headerLeft: () => (
+          <Icon
+            onPress={() => navigation.openDrawer()}
+            name="md-menu"
+            color="white"
+            size={30}
+            style={{
+              paddingLeft: 10,
+            }}
+          />
+        ),
+        headerRight: () => (
+          <View>
+            <MaterialCommunityIcons
+              onPress={() => navigation.navigate("Basket")}
+              name="cart-outline"
+              color="white"
+              size={30}
+              style={{
+                paddingRight: 15,
+              }}
+            />
+
+            <Badge
+              status="warning"
+              value={<Totalquantity />}
+              containerStyle={{ position: "absolute", top: -6, right: 2 }}
+            />
+          </View>
+        ),
+      };
+    },
+  },
+
+
 });
 
 const HomeDrawNavigator = createDrawerNavigator(
@@ -218,31 +374,19 @@ const HomeDrawNavigator = createDrawerNavigator(
   }
 );
 
-const AppNavigator = createStackNavigator(
+
+const CategoryDrawNavigator = createDrawerNavigator(
   {
-    Main: {
-      screen: Main,
-    },
-    Product: {
-      screen: Product,
-    },
-    Address: {
-      screen: Address,
-    },
-    Payment: {
-      screen: Payment,
-    },
-    Orders: {
-      screen: Orders,
-    },
-    OrderDetails: {
-      screen: OrderDetails,
+    Home: {
+      screen: CategoryStackNavigator,
     },
   },
   {
-    initialRouteName: "Main",
+    drawerWidth: Dimensions.get("window").width,
+    contentComponent: CustomDrawerComponent,
   }
 );
+
 
 const AppSwitchNavigator = createSwitchNavigator({
   Login: {
@@ -257,11 +401,8 @@ const AppSwitchNavigator = createSwitchNavigator({
   Home: {
     screen: HomeDrawNavigator,
   },
-  Main: {
-    screen: AppNavigator,
-  },
   Category: {
-    screen: CategoryStackNavigator,
+    screen: CategoryDrawNavigator,
   },
 });
 

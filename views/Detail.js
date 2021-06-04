@@ -28,7 +28,7 @@ class Detail extends Component {
   }
 
   onClickAddCart() {
-    var a = Math.floor(Math.random() * 10000 + 1);
+    var a = Math.floor(Math.random() * 100000 + 1);
     const itemcart = {
       item: this.props.navigation.state.params.detailName,
       quantity: this.state.num,

@@ -81,7 +81,16 @@ class Basket extends Component {
                 );
               })
             ) : (
-              <Text>Cart is Empty</Text>
+              <View style={{
+                justifyContent: "center",
+                alignItems:"center"
+              }}>
+              <Text style={{
+                paddingTop:200,
+                fontWeight: "bold",
+                fontSize: 40
+              }}>Cart is Empty</Text>
+              </View>
             )}
           </ScrollView>
         </View>
