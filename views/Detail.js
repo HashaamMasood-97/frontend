@@ -101,26 +101,33 @@ class Detail extends Component {
               fontSize: 20,
               fontWeight: "bold",
               paddingBottom: 20,
-              color: "#5BBC9D"
+              color: "#5BBC9D",
             }}
           >
             {detailName}
           </Text>
 
-          <View style={{
-            marginHorizontal:15,
-            marginVertical:1,
-            flexDirection:"row",
-            justifyContent:"space-between",
-            color: "black"
-          }}>
-            <Text style={{fontSize:20, paddingBottom:5, fontWeight:"bold", color:"#5BBC9D"}}>Quantity</Text>
-            <Counter
-              start={1}
-              onChange={this.onChange.bind(this)}
-            />
+          <View
+            style={{
+              marginHorizontal: 15,
+              marginVertical: 1,
+              flexDirection: "row",
+              justifyContent: "space-between",
+              color: "black",
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 20,
+                paddingBottom: 5,
+                fontWeight: "bold",
+                color: "#5BBC9D",
+              }}
+            >
+              Quantity
+            </Text>
+            <Counter start={1} onChange={this.onChange.bind(this)} />
           </View>
-   
 
           <View
             style={{
@@ -172,7 +179,6 @@ class Detail extends Component {
                   {detailPriceTwo}
                 </Text>
               </View>
-              
 
               <View
                 style={{
@@ -216,7 +222,6 @@ class Detail extends Component {
               </View>
             </View>
           </View>
-          
 
           <View
             style={{
