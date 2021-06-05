@@ -155,6 +155,7 @@ class Register extends ValidationComponent {
             onChange={(address) => {
               this.setState({ address });
             }}
+        
           />
           {this.isFieldInError("address") &&
             this.getErrorsInField("address").map((errorMessage, key) => (
@@ -199,6 +200,7 @@ class Register extends ValidationComponent {
             onChange={(password) => {
               this.setState({ password });
             }}
+            bool={true}
           />
           {this.isFieldInError("password") &&
             this.getErrorsInField("password").map((errorMessage, key) => (

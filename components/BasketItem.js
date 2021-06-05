@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { View, Image, Text, TouchableOpacity, Alert } from "react-native";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
-/*import FAIcon from "@expo/vector-icons/FontAwesome";
-import AsyncStorage from "@react-native-community/async-storage"; */
+import FAIcon from "@expo/vector-icons/FontAwesome";
+import AsyncStorage from "@react-native-community/async-storage"; 
 
 class BasketItem extends Component {
  
   render() {
-    const { imageUri, name, quantity, price,ids } = this.props;
+    const { imageUri, name, quantity, price, press } = this.props;
     return (
       <View
         style={{
@@ -81,46 +81,19 @@ class BasketItem extends Component {
               </Text>
 
             </View>
-            {/*  <View
+              <View
               style={{
                 flexDirection: "row",
                 alignItems: "center"
               }}
             >
         
-             <TouchableOpacity>
-                <FAIcon name="trash-o" size={30} color="gray"  onPress={()=>{
-                       Alert.alert("Are you sure you want to delete this item?", "",   [
-                        {
-                          text: "Cancel",
-                          onPress: () => console.log("Cancel Pressed"),
-                          style: "cancel"
-                        },
-                        { text: "OK",
-                          onPress: () => {
-                      
-                           
-                            
-                              try {
-                                  AsyncStorage.removeItem(ids);
-                                  console.log('Data removed')
-                                }
-                              
-                              catch(exception) {
-                                  return false;
-                              }
-                          
-                            
-
-                          }
-                        }
-                      ] ); 
-              }
-                }  />
+             <TouchableOpacity >
+                <FAIcon name="trash-o" size={30} color="gray" onPress={press} />
               </TouchableOpacity>
             
             </View>
-            */}
+            
           </View>
        
           <View
@@ -149,3 +122,33 @@ class BasketItem extends Component {
 }
 
 export default BasketItem;
+
+
+/*onPress={()=>{
+  Alert.alert("Are you sure you want to delete this item?", "",   [
+    {
+      text: "Cancel",
+      onPress: () => console.log("Cancel Pressed"),
+      style: "cancel"
+    },
+    { text: "OK",
+      onPress: () => {
+  
+       
+        
+          try {
+              AsyncStorage.removeItem(ids);
+              console.log('Data removed')
+            }
+          
+          catch(exception) {
+              return false;
+          }
+      
+        
+
+      }
+    }
+  ] ); 
+}
+}*/

@@ -5,17 +5,20 @@ import Icon from "@expo/vector-icons/Ionicons";
 import BasketItem from "../components/BasketItem";
 import BasketTotalList from "../components/BasketTotalList";
 import AsyncStorage from "@react-native-community/async-storage";
+import { FancyAlert } from "react-native-expo-fancy-alerts";
 
 class Basket extends Component {
   constructor(props) {
     super(props);
     this.state = {
       dataCart: [],
+      updatecart: [],
       totalPrice: 0,
       totalQuantity: 0,
       name: "",
       id: "",
       email: "",
+      visible1: false,
     };
   }
 
@@ -53,6 +56,21 @@ class Basket extends Component {
     } catch (e) {}
   }
 
+  updateCart = (id) => {
+    let updatecart = this.state.dataCart.filter(function (item) {
+      return item.id !== id;
+    });
+
+    this.setState({ updatecart: updatecart });
+  };
+  updateCart1 = (id) => {
+    let updatecart = this.state.updatecart.filter(function (item) {
+      return item.id !== id;
+    });
+
+    this.setState({ updatecart: updatecart });
+  };
+
   render() {
     return (
       <View
@@ -67,33 +85,38 @@ class Basket extends Component {
           }}
         >
           <ScrollView>
-            {this.state.dataCart != "" ? (
-              this.state.dataCart.map((item, key) => {
-                return (
-                  <BasketItem
-                    key={key}
-                    imageUri={item.image}
-                    name={item.item}
-                    quantity={item.quantity}
-                    price={item.price}
-                    ids={item.id}
-                  />
-                );
-              })
-            ) : (
-              <View style={{
-                justifyContent: "center",
-                alignItems:"center"
-              }}>
-              <Text style={{
-                paddingTop:200,
-                fontWeight: "bold",
-                fontSize: 40
-              }}>Cart is Empty</Text>
-              </View>
-            )}
+            {this.state.updatecart == ""
+              ? this.state.dataCart.map((item, key) => {
+                  return (
+                    <BasketItem
+                      key={key}
+                      imageUri={item.image}
+                      name={item.item}
+                      quantity={item.quantity}
+                      price={item.price}
+                      press={() => {
+                        this.updateCart(item.id);
+                      }}
+                    />
+                  );
+                })
+              : this.state.updatecart.map((item, key) => {
+                  return (
+                    <BasketItem
+                      key={key}
+                      imageUri={item.image}
+                      name={item.item}
+                      quantity={item.quantity}
+                      price={item.price}
+                      press={() => {
+                        this.updateCart1(item.id);
+                      }}
+                    />
+                  );
+                })}
           </ScrollView>
         </View>
+
         <View
           style={{
             flex: 1,

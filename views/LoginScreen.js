@@ -109,6 +109,7 @@ class LoginScreen extends ValidationComponent {
             onChange={(email) => {
               this.setState({ email });
             }}
+          
           />
             {this.isFieldInError("email") &&
             this.getErrorsInField("email").map((errorMessage, key) => (
@@ -127,6 +128,7 @@ class LoginScreen extends ValidationComponent {
           <Input
             label="Your password"
             placeholder="Password"
+            bool={true}
             value={this.state.password}
             onChange={(password) => {
               this.setState({ password });
