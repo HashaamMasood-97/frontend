@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { FlatList, View } from "react-native";
 import { ListItem, SearchBar } from "react-native-elements";
 import axios from "axios";
-import {ip} from "../ip/ip";
+import { ip } from "../ip/ip";
+import Pagination,{Icon,Dot} from 'react-native-pagination';
 
 export class Product extends Component {
   constructor(props) {
@@ -16,7 +17,7 @@ export class Product extends Component {
 
   componentDidMount() {
     axios
-      .get(ip+":3700/gift/product/get")
+      .get(ip + ":3700/gift/product/get")
       .then((response) => {
         this.setState({ gift: response.data });
       })
@@ -31,7 +32,7 @@ export class Product extends Component {
     let filteredData = this.state.gift.filter(function (item) {
       return (
         item.name.toLowerCase().includes(search) ||
-        item.priceOne.toLowerCase().includes(search)
+        item.category.toLowerCase().includes(search)
       );
     });
 
@@ -48,9 +49,11 @@ export class Product extends Component {
         <ListItem
           key={index}
           title={item.name}
-          subtitle={"Category: " + item.category + " | " + "Price: " + item.priceOne  }
+          subtitle={
+            "Category: " + item.category + " | " + "Price: " + item.priceOne
+          }
           hideChevron={true}
-          leftAvatar={{ source: {uri: ip+":3700/"+item.photo} }} 
+          leftAvatar={{ source: { uri: ip + ":3700/" + item.photo } }}
           onPress={() =>
             this.props.navigation.navigate("Detail", {
               detailName: item.name,
@@ -75,15 +78,20 @@ export class Product extends Component {
           value={this.state.search}
         />
 
-        <FlatList
-          data={
-            this.state.filteredData && this.state.filteredData.length > 0
-              ? this.state.filteredData
-              : this.state.gift
-          }
-          renderItem={renderMenuItem}
-          keyExtractor={(item) => item._id}
-        />
+        <View>
+          <FlatList
+            data={
+              this.state.filteredData && this.state.filteredData.length > 0
+                ? this.state.filteredData
+                : this.state.gift
+            }
+            renderItem={renderMenuItem}
+            keyExtractor={(item) => item._id}
+         
+          />
+
+       
+        </View>
       </View>
     );
   }

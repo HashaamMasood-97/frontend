@@ -98,7 +98,7 @@ class Detail extends Component {
             style={{
               textAlign: "center",
               paddingTop: 20,
-              fontSize: 22,
+              fontSize: 20,
               fontWeight: "bold",
               paddingBottom: 20,
               color: "#5BBC9D"
