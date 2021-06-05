@@ -48,6 +48,7 @@ class LoginScreen extends ValidationComponent {
             address: response.data.body.address,
             contact: response.data.body.contact,
             id: response.data.body._id,
+            token: response.data.body.token
           };
 
           AsyncStorage.setItem("token", JSON.stringify(datas))

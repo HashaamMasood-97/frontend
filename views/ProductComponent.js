@@ -8,14 +8,29 @@ import Pagination,{Icon,Dot} from 'react-native-pagination';
 export class Product extends Component {
   constructor(props) {
     super(props);
+    this.getData();
     this.state = {
       gift: [],
       filteredData: [],
       SearchBar: "",
+      token:""
     };
   }
 
+  getData = async () => {
+    try {
+      await AsyncStorage.getItem("token").then((value) => {
+        const data = JSON.parse(value);
+        this.setState({  token: data.token });
+        console.log(value);
+      });
+    } catch (e) {}
+
+  
+  };
+
   componentDidMount() {
+    if(this.state.token !=null){
     axios
       .get(ip + ":3700/gift/product/get")
       .then((response) => {
@@ -24,7 +39,12 @@ export class Product extends Component {
       .catch(function (error) {
         console.log(error);
       });
+    }else{
+      console.log("not logged in")
+    }
   }
+
+ 
 
   updateSearch = (search) => {
     this.setState({ search: search });

@@ -16,6 +16,7 @@ const CATEGORY = ["Chocolate", "Fashion Accessories", "Gift Basket", "Grooming K
 class Category extends Component {
   constructor(props) {
     super(props);
+    this.getData();
     this.state = {
       currentIndex:  0 ,
       chocolate: [],
@@ -23,6 +24,7 @@ class Category extends Component {
       basket: [],
       grooming: [],
       search: "",
+      token: ""
     };
     this.updateSearch = this.updateSearch.bind(this);
   }
@@ -31,7 +33,21 @@ class Category extends Component {
     title: "Category",
   };
 
+  
+  getData = async () => {
+    try {
+      await AsyncStorage.getItem("token").then((value) => {
+        const data = JSON.parse(value);
+        this.setState({  token: data.token });
+        console.log(value);
+      });
+    } catch (e) {}
+
+  
+  };
+
   componentDidMount() {
+    if(this.state.token != null){
     axios
       .get(ip + ":3700/gift/product/chocolate")
       .then((response) => {
@@ -67,7 +83,10 @@ class Category extends Component {
       })
       .catch(function (error) {
         console.log(error);
-      });
+      }); }
+      else{
+        console.log("not logged in")
+      }
   }
 
   updateSearch(inputText) {
